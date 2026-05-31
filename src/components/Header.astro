@@ -1,0 +1,139 @@
+---
+import Logo from "./Logo.astro";
+import { nav, links } from "../config";
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href !== "/" && path.startsWith(href.replace(/\/$/, ""));
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <Logo />
+
+    <nav class="header__nav" aria-label="Primary">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class:list={["header__link", { "is-active": isActive(item.href) }]}
+            {...(item.external ? { target: "_blank", rel: "noopener" } : {})}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="header__actions">
+      <a class="header__link header__link--gh" href={links.github} target="_blank" rel="noopener">GitHub</a>
+      <a class="btn btn--primary header__cta" href={links.quickstart} target="_blank" rel="noopener">Get started</a>
+    </div>
+
+    <button class="header__burger" aria-label="Toggle menu" aria-expanded="false" data-menu-toggle>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="header__mobile" data-mobile-menu hidden>
+    <div class="container">
+      {
+        nav.map((item) => (
+          <a href={item.href} {...(item.external ? { target: "_blank", rel: "noopener" } : {})}>
+            {item.label}
+          </a>
+        ))
+      }
+      <a href={links.quickstart} target="_blank" rel="noopener" class="btn btn--primary">Get started</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: 66px;
+  }
+  .header__nav {
+    display: flex;
+    gap: 28px;
+    margin-inline: auto;
+  }
+  .header__link {
+    color: var(--ink-500);
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.15s ease;
+  }
+  .header__link:hover,
+  .header__link.is-active {
+    color: var(--ink-900);
+    text-decoration: none;
+  }
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .header__burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 6px;
+  }
+  .header__burger span {
+    width: 22px;
+    height: 2px;
+    background: var(--ink-800);
+    border-radius: 2px;
+  }
+  .header__mobile {
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+    padding-block: 16px;
+  }
+  .header__mobile .container {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .header__mobile a:not(.btn) {
+    color: var(--ink-700);
+    font-weight: 500;
+  }
+
+  @media (max-width: 860px) {
+    .header__nav,
+    .header__actions {
+      display: none;
+    }
+    .header__burger {
+      display: flex;
+      margin-inline-start: auto;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector("[data-menu-toggle]");
+  const menu = document.querySelector("[data-mobile-menu]");
+  toggle?.addEventListener("click", () => {
+    const open = menu?.hasAttribute("hidden");
+    if (open) menu?.removeAttribute("hidden");
+    else menu?.setAttribute("hidden", "");
+    toggle.setAttribute("aria-expanded", String(!!open));
+  });
+</script>

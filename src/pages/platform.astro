@@ -1,0 +1,208 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import CTA from "../components/CTA.astro";
+import { links } from "../config";
+
+const modes = [
+  {
+    name: "Pull mode",
+    tag: "Default",
+    body: "The operator initiates outbound HTTPS to the control plane, fetches jobs, applies them locally, and posts status. Nothing inbound, no API exposed.",
+  },
+  {
+    name: "Push mode",
+    tag: "Direct",
+    body: "The control plane reaches the cluster endpoint directly using the same CRD contract — for environments where inbound connectivity is acceptable.",
+  },
+  {
+    name: "GitOps mode",
+    tag: "Declarative",
+    body: "Intent is committed to Git and reconciled by Flux. Same ApplicationInstance and Operation resources, delivered through your existing GitOps pipeline.",
+  },
+];
+
+const crds = [
+  {
+    name: "ApplicationInstance",
+    body: "Desired state of an application: chart, version, values, and lifecycle. Reconciled into a Flux HelmRelease and tracked through conditions.",
+  },
+  {
+    name: "Operation",
+    body: "A day-2 action — backup, restore, upgrade, migration — executed by a pluggable engine (Velero, Argo Workflows, Kubernetes Jobs, Helm hooks).",
+  },
+];
+
+const engines = [
+  "Flux Helm Controller",
+  "Velero",
+  "Argo Workflows",
+  "Kubernetes Jobs",
+  "Helm hooks",
+  "CSI snapshots / VolSync",
+];
+---
+
+<BaseLayout
+  title="Platform"
+  description="How vWorkspace works: a control plane, a cluster-side operator, two CRDs, and three connectivity modes built on proven Kubernetes controllers."
+>
+  <PageHero
+    eyebrow="Platform"
+    title="A small, legible system for operating Kubernetes apps"
+    text="vWorkspace deliberately keeps its surface area small: one control plane, one operator per cluster, and two custom resources reconciled by controllers you already trust."
+  />
+
+  <section class="section section--tight">
+    <div class="container split">
+      <div>
+        <h2>The contract</h2>
+        <p class="muted">
+          The control plane never holds a kubeconfig. It exchanges a narrow,
+          versioned HTTP and CRD contract with the operator. The operator owns all
+          cluster-side execution and reports status back.
+        </p>
+      </div>
+      <div>
+        <h2>The CRDs</h2>
+        <div class="stack">
+          {
+            crds.map((c) => (
+              <div class="row">
+                <code>{c.name}</code>
+                <p class="muted">{c.body}</p>
+              </div>
+            ))
+          }
+        </div>
+        <a href={links.apiRef} target="_blank" rel="noopener" class="inline-link">Full API reference →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Connectivity</span>
+      <h2 class="title">Three modes, one CRD contract</h2>
+      <div class="grid-3">
+        {
+          modes.map((m) => (
+            <article class="tile">
+              <span class="tile__tag">{m.tag}</span>
+              <h3>{m.name}</h3>
+              <p class="muted">{m.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Execution engines</span>
+      <h2 class="title">Reconciled by proven controllers</h2>
+      <p class="lead measure">
+        Operations delegate to battle-tested projects rather than reinventing them.
+        vWorkspace orchestrates; the ecosystem executes.
+      </p>
+      <div class="chips">
+        {engines.map((e) => <span class="chip">{e}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <CTA title="See the architecture in depth" text="The operator docs cover reconciliation, connectivity, security, and the full CRD reference." />
+</BaseLayout>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 48px;
+  }
+  .split h2 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .row code {
+    align-self: flex-start;
+    font-size: 14px;
+  }
+  .inline-link {
+    display: inline-block;
+    margin-top: 22px;
+    font-weight: 600;
+  }
+  .section--alt {
+    background: var(--surface-2);
+    border-block: 1px solid var(--line);
+  }
+  .title {
+    font-size: clamp(24px, 3.4vw, 34px);
+    margin: 14px 0 8px;
+  }
+  .grid-3 {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .tile {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px;
+  }
+  .tile__tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--brand-600);
+    margin-bottom: 10px;
+  }
+  .tile h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .tile p {
+    font-size: 15px;
+  }
+  .chips {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .chip {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-700);
+    background: var(--surface-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 8px 16px;
+  }
+
+  @media (max-width: 820px) {
+    .split {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .grid-3 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

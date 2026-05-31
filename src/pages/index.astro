@@ -1,0 +1,442 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CTA from "../components/CTA.astro";
+import { links } from "../config";
+
+const components = [
+  {
+    name: "Server",
+    sub: "Control plane",
+    body: "Declares intent, schedules Pull-mode jobs, and receives status and audit events. Holds cluster identity and credentials — never a kubeconfig.",
+    href: links.serverDocs,
+    cta: "Server docs",
+  },
+  {
+    name: "Operator",
+    sub: "Cluster agent",
+    body: "Runs in your cluster, reconciles two CRDs, executes jobs locally, and reports health. One operator deployment per cluster.",
+    href: links.operatorDocs,
+    cta: "Operator docs",
+  },
+  {
+    name: "Two CRDs",
+    sub: "ApplicationInstance · Operation",
+    body: "Day-2 work is modeled as Kubernetes resources reconciled by proven controllers — Flux, Velero, Argo — not imperative scripts.",
+    href: links.apiRef,
+    cta: "API reference",
+  },
+];
+
+const steps = [
+  {
+    n: "01",
+    title: "Register a cluster",
+    body: "The operator initiates outbound HTTPS to the control plane with a one-time token. No inbound ports. No API exposed to the internet.",
+  },
+  {
+    n: "02",
+    title: "Declare intent",
+    body: "Define applications and operations on the server. Pull mode (the default) turns them into jobs the operator fetches and applies.",
+  },
+  {
+    n: "03",
+    title: "Reconcile & report",
+    body: "The operator applies changes via Helm/Flux, runs backups via Velero, and posts status and audit events back to the control plane.",
+  },
+];
+
+const features = [
+  {
+    title: "Helm-first by design",
+    body: "Every application deploys from an upstream Helm chart via the Flux Helm Controller. No bespoke per-app glue.",
+  },
+  {
+    title: "Least exposure",
+    body: "No inbound ports and no kubeconfig leaves the cluster. The operator reaches out — never the other way around.",
+  },
+  {
+    title: "Three connectivity modes",
+    body: "Pull, Push, and GitOps share the same CRD contract with different transport. Start simple, evolve later.",
+  },
+  {
+    title: "Multi-cluster, one pane",
+    body: "Operate many clusters from a single server without exposing the Kubernetes API surface to the control plane.",
+  },
+  {
+    title: "Two predictable CRDs",
+    body: "ApplicationInstance and Operation, instead of dozens of per-application operators to learn and maintain.",
+  },
+  {
+    title: "Truly open source",
+    body: "AGPL-3.0 across the entire project. Self-host it, audit it, extend it — no vendor lock-in.",
+  },
+];
+
+const builtOn = ["Kubernetes", "Helm", "Flux CD", "Velero", "Argo Workflows"];
+---
+
+<BaseLayout>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <span class="badge">Alpha · APIs at v1alpha1</span>
+      <h1>The self-hostable control plane for Kubernetes&nbsp;app operations</h1>
+      <p class="lead hero__lead">
+        vWorkspace installs, upgrades, backs up, and operates applications across
+        your clusters — Helm-first, with <strong>no inbound ports</strong> and
+        <strong>no kubeconfig</strong> handed to the control plane.
+      </p>
+      <div class="btn-row hero__cta">
+        <a class="btn btn--primary" href={links.quickstart} target="_blank" rel="noopener">Get started</a>
+        <a class="btn btn--secondary" href={links.operatorDocs} target="_blank" rel="noopener">Read the docs</a>
+      </div>
+      <p class="hero__note muted">Open source · AGPL-3.0 · Runs on any conformant Kubernetes</p>
+    </div>
+
+    <div class="container">
+      <div class="arch" aria-label="Architecture diagram">
+        <div class="arch__node">
+          <span class="arch__tag">Control plane</span>
+          <strong>vWorkspace Server</strong>
+          <span class="muted">Declares intent · audits</span>
+        </div>
+        <div class="arch__link">
+          <span>Pull / Push / GitOps</span>
+          <div class="arch__line"></div>
+          <span class="muted">narrow HTTP + CRD contract</span>
+        </div>
+        <div class="arch__node arch__node--brand">
+          <span class="arch__tag">In your cluster</span>
+          <strong>vworkspace-operator</strong>
+          <span class="muted">Reconciles · executes · reports</span>
+        </div>
+      </div>
+      <div class="arch__downstream">
+        <span class="muted">drives</span>
+        {builtOn.map((b) => <span class="chip">{b}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Components -->
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Architecture</span>
+      <h2 class="section__title">Three moving parts, one contract</h2>
+      <p class="lead measure">
+        A small, legible system: a control plane, a cluster-side operator, and two
+        custom resources that model everything in between.
+      </p>
+      <div class="cards">
+        {
+          components.map((c) => (
+            <article class="card">
+              <div class="card__head">
+                <h3>{c.name}</h3>
+                <span class="card__sub">{c.sub}</span>
+              </div>
+              <p>{c.body}</p>
+              <a href={c.href} target="_blank" rel="noopener" class="card__link">
+                {c.cta} →
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">How it works</span>
+      <h2 class="section__title">From intent to reconciled state</h2>
+      <div class="steps">
+        {
+          steps.map((s) => (
+            <div class="step">
+              <span class="step__n">{s.n}</span>
+              <h3>{s.title}</h3>
+              <p class="muted">{s.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Why -->
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Why vWorkspace</span>
+      <h2 class="section__title">Built for platform teams who value restraint</h2>
+      <div class="features">
+        {
+          features.map((f) => (
+            <div class="feature">
+              <h3>{f.title}</h3>
+              <p class="muted">{f.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    position: relative;
+    padding-top: clamp(72px, 9vw, 120px);
+    padding-bottom: clamp(48px, 6vw, 80px);
+    background:
+      radial-gradient(820px 420px at 78% -8%, rgba(99, 102, 241, 0.14), transparent 62%),
+      radial-gradient(620px 360px at 6% 4%, rgba(6, 182, 212, 0.1), transparent 60%);
+  }
+  .hero__inner {
+    text-align: center;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--brand-600);
+    background: rgba(79, 70, 229, 0.08);
+    border: 1px solid rgba(79, 70, 229, 0.2);
+    padding: 6px 13px;
+    border-radius: 999px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(36px, 5.4vw, 60px);
+    max-width: 16ch;
+    margin-inline: auto;
+    font-weight: 720;
+  }
+  .hero__lead {
+    margin: 24px auto 0;
+    max-width: 62ch;
+  }
+  .hero__lead strong {
+    color: var(--ink-800);
+    font-weight: 600;
+  }
+  .hero__cta {
+    justify-content: center;
+    margin-top: 32px;
+  }
+  .hero__note {
+    margin-top: 18px;
+    font-size: 14px;
+  }
+
+  /* Architecture visual */
+  .arch {
+    margin-top: clamp(48px, 7vw, 80px);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 20px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 28px;
+  }
+  .arch__node {
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: var(--surface-2);
+  }
+  .arch__node--brand {
+    border-color: rgba(79, 70, 229, 0.4);
+    background: linear-gradient(180deg, rgba(79, 70, 229, 0.06), rgba(79, 70, 229, 0.02));
+  }
+  .arch__node strong {
+    font-size: 18px;
+    color: var(--ink-900);
+  }
+  .arch__node .muted {
+    font-size: 13px;
+  }
+  .arch__tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brand-600);
+  }
+  .arch__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--ink-700);
+    min-width: 150px;
+  }
+  .arch__line {
+    width: 100%;
+    height: 2px;
+    background: var(--gradient-brand);
+    border-radius: 2px;
+    position: relative;
+  }
+  .arch__line::before,
+  .arch__line::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--brand-500);
+    transform: translateY(-50%);
+  }
+  .arch__line::before { left: -1px; }
+  .arch__line::after { right: -1px; }
+
+  .arch__downstream {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .chip {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-700);
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 6px 14px;
+  }
+
+  /* Section scaffolding */
+  .section--alt {
+    background: var(--surface-2);
+    border-block: 1px solid var(--line);
+  }
+  .section__title {
+    font-size: clamp(26px, 3.6vw, 38px);
+    margin-bottom: 16px;
+    max-width: 20ch;
+  }
+
+  /* Cards */
+  .cards {
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: box-shadow 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+  }
+  .card:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+    border-color: var(--line-strong);
+  }
+  .card__head {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .card__head h3 {
+    font-size: 20px;
+  }
+  .card__sub {
+    font-size: 13px;
+    color: var(--ink-400);
+    font-family: var(--font-mono);
+  }
+  .card p {
+    color: var(--ink-500);
+    font-size: 15px;
+    flex: 1;
+  }
+  .card__link {
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  /* Steps */
+  .steps {
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px;
+  }
+  .step__n {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--brand-600);
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+  .step h3 {
+    font-size: 19px;
+    margin-bottom: 8px;
+  }
+  .step p {
+    font-size: 15px;
+  }
+
+  /* Features */
+  .features {
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .feature h3 {
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+  .feature p {
+    font-size: 15px;
+  }
+
+  @media (max-width: 920px) {
+    .cards,
+    .steps,
+    .features {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 720px) {
+    .arch {
+      grid-template-columns: 1fr;
+    }
+    .arch__link {
+      flex-direction: row;
+      gap: 10px;
+    }
+    .arch__line {
+      width: 60px;
+    }
+    .cards,
+    .steps,
+    .features {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

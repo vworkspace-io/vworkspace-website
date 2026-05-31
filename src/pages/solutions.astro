@@ -1,0 +1,125 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import CTA from "../components/CTA.astro";
+
+const audiences = [
+  {
+    title: "Platform teams",
+    body: "Running k3s, Talos, Harvester, managed Kubernetes, or homelab clusters who want one coherent, AGPL-licensed control plane instead of a pile of scripts.",
+  },
+  {
+    title: "Multi-cluster operators",
+    body: "Manage many clusters from a single vWorkspace Server without exposing the Kubernetes API to the internet or distributing kubeconfigs.",
+  },
+  {
+    title: "Regulated & air-gapped",
+    body: "Pull mode means clusters reach out, never the reverse. Pair it with private registries and offline installs for restricted environments.",
+  },
+];
+
+const useCases = [
+  {
+    title: "Application lifecycle",
+    body: "Install and upgrade applications from upstream Helm charts with declarative ApplicationInstance resources and tracked conditions.",
+  },
+  {
+    title: "Backups & restores",
+    body: "Model backups and restores as Operation resources executed by Velero or CSI snapshots — with audit trails on the control plane.",
+  },
+  {
+    title: "Fleet day-2 operations",
+    body: "Roll upgrades and migrations across a fleet from one place, using the same two CRDs on every cluster.",
+  },
+  {
+    title: "GitOps without lock-in",
+    body: "Commit intent to Git and reconcile with Flux, or switch to Pull mode — the contract is identical either way.",
+  },
+];
+---
+
+<BaseLayout
+  title="Solutions"
+  description="Who vWorkspace is for and what teams use it to do: application lifecycle, backups, fleet day-2 operations, and GitOps across Kubernetes clusters."
+>
+  <PageHero
+    eyebrow="Solutions"
+    title="One control plane, many clusters, no lock-in"
+    text="vWorkspace fits teams that want predictable, auditable operations across Kubernetes — without handing their clusters' keys to a SaaS."
+  />
+
+  <section class="section section--tight">
+    <div class="container">
+      <span class="eyebrow">Who it's for</span>
+      <div class="grid">
+        {
+          audiences.map((a) => (
+            <article class="card">
+              <h3>{a.title}</h3>
+              <p class="muted">{a.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Use cases</span>
+      <h2 class="title">What teams run on it</h2>
+      <div class="grid grid--2">
+        {
+          useCases.map((u) => (
+            <article class="card card--flat">
+              <h3>{u.title}</h3>
+              <p class="muted">{u.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTA title="Find the fit for your environment" text="Start with the quickstart, or read the connectivity guide to pick Pull, Push, or GitOps." />
+</BaseLayout>
+
+<style>
+  .grid {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 36px;
+  }
+  .title {
+    font-size: clamp(24px, 3.4vw, 34px);
+    margin: 14px 0 0;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+  .card--flat {
+    background: var(--surface);
+  }
+  .card h3 {
+    font-size: 19px;
+    margin-bottom: 10px;
+  }
+  .card p {
+    font-size: 15px;
+  }
+
+  @media (max-width: 820px) {
+    .grid,
+    .grid--2 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

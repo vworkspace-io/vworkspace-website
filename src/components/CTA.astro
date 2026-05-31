@@ -1,0 +1,51 @@
+---
+import { links } from "../config";
+interface Props {
+  title?: string;
+  text?: string;
+}
+const {
+  title = "Operate every cluster from one control plane",
+  text = "Deploy the operator, register a cluster, and run day-2 operations as code.",
+} = Astro.props;
+---
+
+<section class="cta">
+  <div class="container cta__inner">
+    <h2>{title}</h2>
+    <p>{text}</p>
+    <div class="btn-row cta__row">
+      <a class="btn btn--on-dark" href={links.quickstart} target="_blank" rel="noopener">Read the quickstart</a>
+      <a class="btn btn--ghost-on-dark" href={links.github} target="_blank" rel="noopener">Explore on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    background:
+      radial-gradient(900px 400px at 80% -20%, rgba(99, 102, 241, 0.35), transparent 60%),
+      radial-gradient(700px 360px at 0% 120%, rgba(6, 182, 212, 0.18), transparent 60%),
+      var(--dark-bg);
+    color: var(--dark-text);
+  }
+  .cta__inner {
+    text-align: center;
+    padding-block: clamp(64px, 9vw, 104px);
+  }
+  .cta h2 {
+    color: #fff;
+    font-size: clamp(28px, 4vw, 40px);
+    max-width: 18ch;
+    margin-inline: auto;
+  }
+  .cta p {
+    color: var(--dark-muted);
+    font-size: 19px;
+    margin: 18px auto 30px;
+    max-width: 52ch;
+  }
+  .cta__row {
+    justify-content: center;
+  }
+</style>

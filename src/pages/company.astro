@@ -1,0 +1,154 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import CTA from "../components/CTA.astro";
+import { links } from "../config";
+
+const principles = [
+  {
+    title: "Open by default",
+    body: "The entire project is AGPL-3.0. No open-core bait-and-switch, no proprietary control plane.",
+  },
+  {
+    title: "Small surface area",
+    body: "Two CRDs and one operator per cluster. We add capability by composing proven controllers, not by growing the API.",
+  },
+  {
+    title: "Least privilege",
+    body: "Clusters reach out; the control plane never holds a kubeconfig. Security is a design constraint, not an add-on.",
+  },
+];
+
+const repos = [
+  { name: "vworkspace", body: "Project overview, vision, and roadmap.", href: links.vworkspace },
+  { name: "vworkspace-server", body: "Control plane, built on Odoo 19.", href: links.server },
+  { name: "vworkspace-operator", body: "Cluster-side Kubernetes operator (Go).", href: links.operator },
+];
+---
+
+<BaseLayout
+  title="Company"
+  description="vWorkspace is an open-source project building a self-hostable, AGPL-licensed control plane for Kubernetes application operations."
+>
+  <PageHero
+    eyebrow="Company"
+    title="An open-source project, built in the open"
+    text="vWorkspace is a community-governed, AGPL-licensed project. Everything — the control plane, the operator, the docs — lives on GitHub."
+  />
+
+  <section class="section section--tight">
+    <div class="container">
+      <span class="eyebrow">Principles</span>
+      <div class="grid">
+        {
+          principles.map((p) => (
+            <article class="card">
+              <h3>{p.title}</h3>
+              <p class="muted">{p.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Repositories</span>
+      <h2 class="title">Three repositories, one project</h2>
+      <div class="repos">
+        {
+          repos.map((r) => (
+            <a class="repo" href={r.href} target="_blank" rel="noopener">
+              <div>
+                <code>{r.name}</code>
+                <p class="muted">{r.body}</p>
+              </div>
+              <span class="repo__arrow">→</span>
+            </a>
+          ))
+        }
+      </div>
+      <div class="links">
+        <a href={links.governance} target="_blank" rel="noopener">Governance</a>
+        <a href={links.contributing} target="_blank" rel="noopener">Contributing</a>
+        <a href={links.security} target="_blank" rel="noopener">Security policy</a>
+        <a href={links.license} target="_blank" rel="noopener">License (AGPL-3.0)</a>
+      </div>
+    </div>
+  </section>
+
+  <CTA title="Contribute to vWorkspace" text="Issues, discussions, and pull requests are welcome across all repositories." />
+</BaseLayout>
+
+<style>
+  .grid {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .title {
+    font-size: clamp(24px, 3.4vw, 34px);
+    margin: 14px 0 0;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+  .card h3 {
+    font-size: 19px;
+    margin-bottom: 10px;
+  }
+  .card p {
+    font-size: 15px;
+  }
+  .repos {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .repo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .repo:hover {
+    text-decoration: none;
+    border-color: var(--line-strong);
+    transform: translateX(2px);
+  }
+  .repo code {
+    font-size: 15px;
+  }
+  .repo p {
+    margin-top: 6px;
+    font-size: 14px;
+  }
+  .repo__arrow {
+    color: var(--brand-600);
+    font-size: 20px;
+  }
+  .links {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    font-weight: 500;
+  }
+
+  @media (max-width: 820px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,107 @@
+---
+import Logo from "./Logo.astro";
+import { footerColumns, site } from "../config";
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <Logo />
+      <p class="muted">{site.tagline}.</p>
+      <span class="footer__badge">Open source · AGPL-3.0</span>
+    </div>
+
+    {
+      footerColumns.map((col) => (
+        <nav class="footer__col" aria-label={col.title}>
+          <h4>{col.title}</h4>
+          {col.items.map((item) => (
+            <a
+              href={item.href}
+              {...((item as any).external ? { target: "_blank", rel: "noopener" } : {})}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      ))
+    }
+  </div>
+
+  <div class="container footer__bottom">
+    <span class="muted">© {year} vWorkspace contributors. Licensed under AGPL-3.0.</span>
+    <span class="muted">{site.domain}</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line);
+    background: var(--surface-2);
+    padding-block: 64px 32px;
+  }
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 2fr repeat(4, 1fr);
+    gap: 40px 28px;
+  }
+  .footer__brand {
+    max-width: 280px;
+  }
+  .footer__brand p {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .footer__badge {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-500);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 4px 10px;
+  }
+  .footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer__col h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-900);
+    margin-bottom: 4px;
+  }
+  .footer__col a {
+    color: var(--ink-500);
+    font-size: 14px;
+  }
+  .footer__col a:hover {
+    color: var(--ink-900);
+    text-decoration: none;
+  }
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 860px) {
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .footer__brand {
+      grid-column: 1 / -1;
+      max-width: none;
+    }
+  }
+</style>

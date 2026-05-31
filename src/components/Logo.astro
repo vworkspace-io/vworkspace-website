@@ -1,0 +1,36 @@
+---
+interface Props {
+  variant?: "default" | "on-dark";
+  class?: string;
+}
+const { variant = "default", class: className = "" } = Astro.props;
+const fg = variant === "on-dark" ? "#ffffff" : "#0b0d14";
+---
+
+<a href="/" class={`logo ${className}`} aria-label="vWorkspace home">
+  <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
+    <rect width="32" height="32" rx="7" fill="#4f46e5"></rect>
+    <path
+      d="M8 9.5l5 13 3-7.5 3 7.5 5-13"
+      fill="none"
+      stroke="#fff"
+      stroke-width="2.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+  </svg>
+  <span style={`color:${fg}`}>vWorkspace</span>
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+  }
+  .logo:hover {
+    text-decoration: none;
+  }
+</style>
