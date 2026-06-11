@@ -7,18 +7,22 @@ import { links } from "../config";
 const modes = [
   {
     name: "Pull mode",
-    tag: "Default",
+    tag: "Default · shipped",
     body: "The operator initiates outbound HTTPS to the control plane, fetches jobs, applies them locally, and posts status. Nothing inbound, no API exposed.",
-  },
-  {
-    name: "Push mode",
-    tag: "Direct",
-    body: "The control plane reaches the cluster endpoint directly using the same CRD contract — for environments where inbound connectivity is acceptable.",
+    featured: true,
   },
   {
     name: "GitOps mode",
     tag: "Declarative",
     body: "Intent is committed to Git and reconciled by Flux. Same ApplicationInstance and Operation resources, delivered through your existing GitOps pipeline.",
+    featured: false,
+  },
+  {
+    name: "Push mode",
+    tag: "Planned",
+    body: "The control plane reaches the cluster endpoint directly, for environments where inbound connectivity is acceptable. Same CRD contract — on the roadmap, not shipped yet.",
+    featured: false,
+    muted: true,
   },
 ];
 
@@ -41,19 +45,47 @@ const engines = [
   "Helm hooks",
   "CSI snapshots / VolSync",
 ];
+
+const stack = [
+  { layer: "Control plane", detail: "vWorkspace Server — branded login, workspace home, clusters, catalog, operations, audit" },
+  { layer: "Cluster operator", detail: "Pull-mode agent per cluster — reconciles CRDs, executes via Flux and Velero" },
+  { layer: "Apps", detail: "Helm-deployed via catalog — Nextcloud, NetBird, and more" },
+  { layer: "Private AI", detail: "Ollama on your GPU for support triage (read-only analysis)" },
+];
 ---
 
 <BaseLayout
   title="Platform"
-  description="How vWorkspace works: a control plane, a cluster-side operator, two CRDs, and three connectivity modes built on proven Kubernetes controllers."
+  description="How vWorkspace works: a control plane, pull-mode cluster operator, two CRDs, and proven Kubernetes controllers — self-hostable anywhere, or preinstalled on an appliance."
 >
   <PageHero
     eyebrow="Platform"
-    title="A small, legible system for operating Kubernetes apps"
-    text="vWorkspace deliberately keeps its surface area small: one control plane, one operator per cluster, and two custom resources reconciled by controllers you already trust."
+    title="A small, legible system for operating your workspace"
+    text="vWorkspace deliberately keeps its surface area small: one control plane, one pull-mode operator per cluster, and two custom resources reconciled by controllers you already trust."
   />
 
   <section class="section section--tight">
+    <div class="container">
+      <span class="eyebrow">The stack</span>
+      <h2 class="title">What you run</h2>
+      <p class="lead measure stack-lead">
+        The same stack everywhere — on your own clusters, or preinstalled and
+        supported on a vWorkspace appliance.
+      </p>
+      <div class="stack-list">
+        {
+          stack.map((s) => (
+            <div class="stack-row">
+              <strong>{s.layer}</strong>
+              <p class="muted">{s.detail}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
     <div class="container split">
       <div>
         <h2>The contract</h2>
@@ -61,6 +93,11 @@ const engines = [
           The control plane never holds a kubeconfig. It exchanges a narrow,
           versioned HTTP and CRD contract with the operator. The operator owns all
           cluster-side execution and reports status back.
+        </p>
+        <p class="muted" style="margin-top: 14px;">
+          We use Odoo Community for a mature admin UI — deliberately, without Enterprise
+          licensing. What you see is vWorkspace: custom login, workspace home, Kubernetes
+          operator, backups, and private support AI.
         </p>
       </div>
       <div>
@@ -80,14 +117,18 @@ const engines = [
     </div>
   </section>
 
-  <section class="section section--alt">
+  <section class="section">
     <div class="container">
       <span class="eyebrow">Connectivity</span>
-      <h2 class="title">Three modes, one CRD contract</h2>
+      <h2 class="title">Pull mode first</h2>
+      <p class="lead measure">
+        vWorkspace ships with pull mode — clusters reach out, never the reverse.
+        GitOps mode shares the same CRD contract for teams that prefer declarative Git workflows.
+      </p>
       <div class="grid-3">
         {
           modes.map((m) => (
-            <article class="tile">
+            <article class:list={["tile", { "tile--featured": m.featured, "tile--muted": m.muted }]}>
               <span class="tile__tag">{m.tag}</span>
               <h3>{m.name}</h3>
               <p class="muted">{m.body}</p>
@@ -98,7 +139,7 @@ const engines = [
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section--alt">
     <div class="container">
       <span class="eyebrow">Execution engines</span>
       <h2 class="title">Reconciled by proven controllers</h2>
@@ -112,10 +153,44 @@ const engines = [
     </div>
   </section>
 
-  <CTA title="See the architecture in depth" text="The operator docs cover reconciliation, connectivity, security, and the full CRD reference." />
+  <CTA
+    title="See the architecture in depth"
+    text="The operator docs cover reconciliation, pull-mode connectivity, security, and the full CRD reference."
+    primaryLabel="Read the docs"
+    primaryHref={links.operatorDocs}
+    secondaryLabel="Get started"
+    secondaryHref={links.quickstart}
+  />
 </BaseLayout>
 
 <style>
+  .title {
+    font-size: clamp(24px, 3.4vw, 34px);
+    margin: 14px 0 8px;
+  }
+  .stack-list {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .stack-row {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .stack-row strong {
+    font-size: 15px;
+    color: var(--brand-600);
+  }
+  .stack-row p {
+    font-size: 15px;
+  }
   .split {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
@@ -148,10 +223,6 @@ const engines = [
     background: var(--surface-2);
     border-block: 1px solid var(--line);
   }
-  .title {
-    font-size: clamp(24px, 3.4vw, 34px);
-    margin: 14px 0 8px;
-  }
   .grid-3 {
     margin-top: 36px;
     display: grid;
@@ -163,6 +234,13 @@ const engines = [
     border: 1px solid var(--line);
     border-radius: var(--radius);
     padding: 26px;
+  }
+  .tile--featured {
+    border-color: rgba(0, 105, 255, 0.35);
+    background: linear-gradient(180deg, rgba(0, 105, 255, 0.05), rgba(0, 105, 255, 0.01));
+  }
+  .tile--muted {
+    opacity: 0.72;
   }
   .tile__tag {
     display: inline-block;
@@ -190,13 +268,17 @@ const engines = [
     font-size: 14px;
     font-weight: 500;
     color: var(--ink-700);
-    background: var(--surface-2);
+    background: var(--surface);
     border: 1px solid var(--line-strong);
     border-radius: 999px;
     padding: 8px 16px;
   }
 
   @media (max-width: 820px) {
+    .stack-row {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
     .split {
       grid-template-columns: 1fr;
       gap: 32px;

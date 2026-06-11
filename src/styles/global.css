@@ -10,13 +10,13 @@
   --line: #e7e9f0;
   --line-strong: #d8dbe6;
   --surface: #ffffff;
-  --surface-2: #f7f8fb;
-  --surface-3: #f0f2f7;
+  --surface-2: #f5f8fd;
+  --surface-3: #eaf1fb;
 
-  --brand-600: #4f46e5;
-  --brand-700: #4338ca;
-  --brand-500: #6366f1;
-  --accent: #06b6d4;
+  --brand-600: #0069ff;
+  --brand-700: #0050d4;
+  --brand-500: #338fff;
+  --accent: #00c2ff;
 
   /* Dark surfaces (hero / CTA bands) */
   --dark-bg: #0a0c16;
@@ -40,7 +40,7 @@
   --shadow: 0 8px 30px rgba(11, 13, 20, 0.08);
   --shadow-lg: 0 24px 60px rgba(11, 13, 20, 0.12);
 
-  --gradient-brand: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+  --gradient-brand: linear-gradient(135deg, #0069ff 0%, #00c2ff 100%);
 }
 
 *,
@@ -160,7 +160,7 @@ code {
 }
 .btn--primary:hover {
   background: var(--brand-700);
-  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.28);
+  box-shadow: 0 8px 20px rgba(0, 105, 255, 0.28);
 }
 .btn--secondary {
   --btn-bg: transparent;

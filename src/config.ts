@@ -2,14 +2,15 @@ export const site = {
   name: "vWorkspace",
   domain: "vworkspace.io",
   url: "https://vworkspace.io",
-  tagline: "Self-hostable control plane for Kubernetes application operations",
+  tagline: "The private workspace platform for organizations that own their data",
   description:
-    "vWorkspace installs, upgrades, backs up, and operates applications across Kubernetes clusters — Helm-first, with no inbound ports and no kubeconfig handed to the control plane. Open source, AGPL-3.0.",
+    "vWorkspace runs your organization's workspace on infrastructure you control — apps, secure networking, backups, and private AI. Deploy it on your own clusters, or get it preinstalled and supported on a ready-to-run appliance.",
 };
 
 export const nav = [
-  { label: "Platform", href: "/platform/" },
   { label: "Solutions", href: "/solutions/" },
+  { label: "Platform", href: "/platform/" },
+  { label: "AI", href: "/ai/" },
   { label: "Company", href: "/company/" },
   { label: "Docs", href: "https://operator.docs.vworkspace.io/", external: true },
 ];
@@ -24,6 +25,8 @@ export const links = {
   serverDocs: "https://server.docs.vworkspace.io/",
   quickstart: "https://operator.docs.vworkspace.io/install/quickstart/",
   apiRef: "https://operator.docs.vworkspace.io/api/",
+  contact: "mailto:maintainers@vworkspace.io",
+  contactEmail: "maintainers@vworkspace.io",
   governance:
     "https://github.com/vworkspace-io/vworkspace-operator/blob/main/GOVERNANCE.md",
   security:
@@ -37,10 +40,10 @@ export const footerColumns = [
   {
     title: "Product",
     items: [
-      { label: "Platform", href: "/platform/" },
       { label: "Solutions", href: "/solutions/" },
+      { label: "Platform", href: "/platform/" },
+      { label: "Private AI", href: "/ai/" },
       { label: "Quickstart", href: links.quickstart, external: true },
-      { label: "API reference", href: links.apiRef, external: true },
     ],
   },
   {
@@ -48,6 +51,7 @@ export const footerColumns = [
     items: [
       { label: "Operator docs", href: links.operatorDocs, external: true },
       { label: "Server docs", href: links.serverDocs, external: true },
+      { label: "API reference", href: links.apiRef, external: true },
     ],
   },
   {
@@ -62,9 +66,9 @@ export const footerColumns = [
     title: "Company",
     items: [
       { label: "About", href: "/company/" },
+      { label: "Contact", href: links.contact },
       { label: "Governance", href: links.governance, external: true },
       { label: "Security", href: links.security, external: true },
-      { label: "License (AGPL-3.0)", href: links.license, external: true },
     ],
   },
 ];

@@ -6,34 +6,38 @@ import { links } from "../config";
 
 const principles = [
   {
-    title: "Open by default",
-    body: "The entire project is AGPL-3.0. No open-core bait-and-switch, no proprietary control plane.",
+    title: "Customers own their stack",
+    body: "One organization per install. You own the domain, the data, and the upgrade cadence — vWorkspace installs, supports, and gets out of the way.",
   },
   {
-    title: "Small surface area",
-    body: "Two CRDs and one operator per cluster. We add capability by composing proven controllers, not by growing the API.",
+    title: "Open platform, commercial delivery",
+    body: "The platform is open and auditable; the business is hardware bundles, installation, and support contracts — not a proprietary paywall around your data.",
   },
   {
-    title: "Least privilege",
-    body: "Clusters reach out; the control plane never holds a kubeconfig. Security is a design constraint, not an add-on.",
+    title: "Security as a design constraint",
+    body: "Clusters reach out in pull mode; the control plane never holds a kubeconfig. Least privilege isn't an add-on — it's the architecture.",
+  },
+  {
+    title: "Built with pilot customers",
+    body: "We co-design the product with reference customers from real friction — not a generic signup funnel. Roadmap and design live in the open on GitHub.",
   },
 ];
 
 const repos = [
-  { name: "vworkspace", body: "Project overview, vision, and roadmap.", href: links.vworkspace },
-  { name: "vworkspace-server", body: "Control plane, built on Odoo 19.", href: links.server },
-  { name: "vworkspace-operator", body: "Cluster-side Kubernetes operator (Go).", href: links.operator },
+  { name: "vworkspace", body: "Project overview, GTM docs, design spikes, and tracking.", href: links.vworkspace },
+  { name: "vworkspace-server", body: "Control plane on Odoo 19 CE — branded appliance UI, catalog, operations.", href: links.server },
+  { name: "vworkspace-operator", body: "Pull-mode Kubernetes operator (Go) — CRDs, Flux, Velero.", href: links.operator },
 ];
 ---
 
 <BaseLayout
   title="Company"
-  description="vWorkspace is an open-source project building a self-hostable, AGPL-licensed control plane for Kubernetes application operations."
+  description="vWorkspace builds the private workspace platform — developed in the open, delivered preinstalled and supported on appliances at customer sites."
 >
   <PageHero
     eyebrow="Company"
-    title="An open-source project, built in the open"
-    text="vWorkspace is a community-governed, AGPL-licensed project. Everything — the control plane, the operator, the docs — lives on GitHub."
+    title="Building the private workspace platform"
+    text="vWorkspace develops its platform in the open and delivers it as a product: preinstalled, supported, and running on infrastructure our customers own."
   />
 
   <section class="section section--tight">
@@ -73,19 +77,30 @@ const repos = [
         <a href={links.governance} target="_blank" rel="noopener">Governance</a>
         <a href={links.contributing} target="_blank" rel="noopener">Contributing</a>
         <a href={links.security} target="_blank" rel="noopener">Security policy</a>
-        <a href={links.license} target="_blank" rel="noopener">License (AGPL-3.0)</a>
+        <a href={links.license} target="_blank" rel="noopener">License</a>
       </div>
+      <p class="muted license-note">
+        The platform is developed in the open and remains self-hostable.
+        Commercial offerings cover hardware, installation, and support.
+      </p>
     </div>
   </section>
 
-  <CTA title="Contribute to vWorkspace" text="Issues, discussions, and pull requests are welcome across all repositories." />
+  <CTA
+    title="Work with vWorkspace"
+    text="Evaluating a private workspace for your organization? Request a pilot. Want to build with us? Everything lives on GitHub."
+    primaryLabel="Request a pilot"
+    primaryHref={links.contact}
+    secondaryLabel="Explore on GitHub"
+    secondaryHref={links.github}
+  />
 </BaseLayout>
 
 <style>
   .grid {
     margin-top: 32px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
   .title {
@@ -144,6 +159,11 @@ const repos = [
     flex-wrap: wrap;
     gap: 24px;
     font-weight: 500;
+  }
+  .license-note {
+    margin-top: 20px;
+    font-size: 14px;
+    max-width: 62ch;
   }
 
   @media (max-width: 820px) {
