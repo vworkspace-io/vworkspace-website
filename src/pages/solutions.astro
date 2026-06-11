@@ -5,47 +5,48 @@ import CTA from "../components/CTA.astro";
 
 const audiences = [
   {
-    title: "Platform teams",
-    body: "Running k3s, Talos, Harvester, managed Kubernetes, or homelab clusters who want one coherent, AGPL-licensed control plane instead of a pile of scripts.",
+    title: "Self-hosting organizations",
+    body: "Teams that want to own their workspace — files, networking, org tools, and AI — on infrastructure they control, instead of renting it from a public cloud.",
   },
   {
-    title: "Multi-cluster operators",
-    body: "Manage many clusters from a single vWorkspace Server without exposing the Kubernetes API to the internet or distributing kubeconfigs.",
+    title: "Platform & homelab engineers",
+    body: "Self-host the open control plane on k3s, Talos, Harvester, or managed Kubernetes. Pull-mode operator, two CRDs, Helm-first — no kubeconfig on the server.",
   },
   {
-    title: "Regulated & air-gapped",
-    body: "Pull mode means clusters reach out, never the reverse. Pair it with private registries and offline installs for restricted environments.",
+    title: "Data-sensitive sectors",
+    body: "Clinics, legal firms, finance, manufacturing, and public sector — where data residency and audit matter, and a preinstalled appliance removes the ops burden.",
   },
 ];
 
 const useCases = [
   {
-    title: "Application lifecycle",
-    body: "Install and upgrade applications from upstream Helm charts with declarative ApplicationInstance resources and tracked conditions.",
+    title: "Private workspace platform",
+    body: "Deploy Nextcloud for files, NetBird for secure remote access, and Odoo-for-Org for contacts and invoicing — from one catalog, with GitOps under the hood.",
   },
   {
-    title: "Backups & restores",
-    body: "Model backups and restores as Operation resources executed by Velero or CSI snapshots — with audit trails on the control plane.",
+    title: "Private IT support AI",
+    body: "Upload a Nextcloud debug bundle, get GPU-powered analysis and ranked suggestions on your own hardware. Admin approves every action.",
   },
   {
-    title: "Fleet day-2 operations",
-    body: "Roll upgrades and migrations across a fleet from one place, using the same two CRDs on every cluster.",
+    title: "Backups & audit",
+    body: "Velero-backed backups modeled as Operation resources, with a full audit trail on the control plane — uploads, analysis, and day-2 actions logged.",
   },
   {
-    title: "GitOps without lock-in",
-    body: "Commit intent to Git and reconcile with Flux, or switch to Pull mode — the contract is identical either way.",
+    title: "Multi-cluster operations",
+    body: "Operate many clusters from one server without exposing the Kubernetes API. Same two CRDs on every cluster, reconciled by Flux and Velero.",
   },
 ];
+
 ---
 
 <BaseLayout
   title="Solutions"
-  description="Who vWorkspace is for and what teams use it to do: application lifecycle, backups, fleet day-2 operations, and GitOps across Kubernetes clusters."
+  description="Who vWorkspace is for: self-hosting organizations, platform engineers, and data-sensitive sectors — a private workspace platform with private AI, available self-hosted or as a ready-to-run appliance."
 >
   <PageHero
     eyebrow="Solutions"
-    title="One control plane, many clusters, no lock-in"
-    text="vWorkspace fits teams that want predictable, auditable operations across Kubernetes — without handing their clusters' keys to a SaaS."
+    title="A private workspace, wherever you run it"
+    text="vWorkspace fits teams that want to own their workspace platform — self-hosted on their own clusters, or delivered preinstalled and supported on an appliance at their site."
   />
 
   <section class="section section--tight">
@@ -67,7 +68,7 @@ const useCases = [
   <section class="section section--alt">
     <div class="container">
       <span class="eyebrow">Use cases</span>
-      <h2 class="title">What teams run on it</h2>
+      <h2 class="title">What organizations run on it</h2>
       <div class="grid grid--2">
         {
           useCases.map((u) => (
@@ -81,7 +82,10 @@ const useCases = [
     </div>
   </section>
 
-  <CTA title="Find the fit for your environment" text="Start with the quickstart, or read the connectivity guide to pick Pull, Push, or GitOps." />
+  <CTA
+    title="Find the fit for your organization"
+    text="Want it preinstalled and supported on hardware at your site? Request a pilot. Running your own clusters? Start with the quickstart."
+  />
 </BaseLayout>
 
 <style>

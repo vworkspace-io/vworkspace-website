@@ -3,94 +3,95 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import CTA from "../components/CTA.astro";
 import { links } from "../config";
 
-const components = [
+const apps = [
+  {
+    name: "Nextcloud",
+    sub: "Private files",
+    body: "File sharing and collaboration on your own infrastructure — your Google Drive, without the Google.",
+  },
+  {
+    name: "NetBird",
+    sub: "Secure access",
+    body: "Zero-trust remote access so staff reach apps from anywhere without exposing inbound ports.",
+  },
+  {
+    name: "Odoo-for-Org",
+    sub: "Org system of record",
+    body: "Contacts, HR-lite, and invoicing — preinstalled with the control plane, not a separate deploy.",
+  },
+];
+
+const pillars = [
+  {
+    title: "Data sovereignty",
+    body: "Your data and your AI inference stay on infrastructure you control. No multi-tenant SaaS, no surprise cloud egress.",
+  },
+  {
+    title: "Catalog-driven apps",
+    body: "Deploy and upgrade applications from a curated catalog in a few clicks. GitOps under the hood — declarative, repeatable, reviewable.",
+  },
+  {
+    title: "Private AI",
+    body: "Run inference on your own GPU — IT support triage, log analysis, and AI-assisted administration, entirely on your hardware.",
+  },
+  {
+    title: "Backups & audit built in",
+    body: "Velero-backed backups as first-class operations, with a full audit trail — compliance-friendly by design.",
+  },
+  {
+    title: "Secure by architecture",
+    body: "Pull-mode operator: clusters reach out over HTTPS. No inbound ports, no kubeconfig on the control plane.",
+  },
+  {
+    title: "Open platform, no lock-in",
+    body: "Built on Kubernetes, Helm, Flux, and Velero. The platform is open and auditable — your workspace is never held hostage.",
+  },
+];
+
+const platformParts = [
   {
     name: "Server",
     sub: "Control plane",
-    body: "Declares intent, schedules Pull-mode jobs, and receives status and audit events. Holds cluster identity and credentials — never a kubeconfig.",
+    body: "Admin UI for clusters, catalog, operations, and audit. Declares intent; never holds a kubeconfig.",
     href: links.serverDocs,
     cta: "Server docs",
   },
   {
     name: "Operator",
     sub: "Cluster agent",
-    body: "Runs in your cluster, reconciles two CRDs, executes jobs locally, and reports health. One operator deployment per cluster.",
+    body: "Runs in your cluster, reconciles ApplicationInstance and Operation CRDs, executes via Flux and Velero.",
     href: links.operatorDocs,
     cta: "Operator docs",
   },
   {
     name: "Two CRDs",
     sub: "ApplicationInstance · Operation",
-    body: "Day-2 work is modeled as Kubernetes resources reconciled by proven controllers — Flux, Velero, Argo — not imperative scripts.",
+    body: "Day-2 work modeled as Kubernetes resources — not imperative scripts or dozens of per-app operators.",
     href: links.apiRef,
     cta: "API reference",
   },
 ];
 
-const steps = [
-  {
-    n: "01",
-    title: "Register a cluster",
-    body: "The operator initiates outbound HTTPS to the control plane with a one-time token. No inbound ports. No API exposed to the internet.",
-  },
-  {
-    n: "02",
-    title: "Declare intent",
-    body: "Define applications and operations on the server. Pull mode (the default) turns them into jobs the operator fetches and applies.",
-  },
-  {
-    n: "03",
-    title: "Reconcile & report",
-    body: "The operator applies changes via Helm/Flux, runs backups via Velero, and posts status and audit events back to the control plane.",
-  },
-];
-
-const features = [
-  {
-    title: "Helm-first by design",
-    body: "Every application deploys from an upstream Helm chart via the Flux Helm Controller. No bespoke per-app glue.",
-  },
-  {
-    title: "Least exposure",
-    body: "No inbound ports and no kubeconfig leaves the cluster. The operator reaches out — never the other way around.",
-  },
-  {
-    title: "Three connectivity modes",
-    body: "Pull, Push, and GitOps share the same CRD contract with different transport. Start simple, evolve later.",
-  },
-  {
-    title: "Multi-cluster, one pane",
-    body: "Operate many clusters from a single server without exposing the Kubernetes API surface to the control plane.",
-  },
-  {
-    title: "Two predictable CRDs",
-    body: "ApplicationInstance and Operation, instead of dozens of per-application operators to learn and maintain.",
-  },
-  {
-    title: "Truly open source",
-    body: "AGPL-3.0 across the entire project. Self-host it, audit it, extend it — no vendor lock-in.",
-  },
-];
-
-const builtOn = ["Kubernetes", "Helm", "Flux CD", "Velero", "Argo Workflows"];
+const builtOn = ["Kubernetes", "Helm", "Flux CD", "Velero", "Ollama"];
 ---
 
 <BaseLayout>
   <!-- Hero -->
   <section class="hero">
     <div class="container hero__inner">
-      <span class="badge">Alpha · APIs at v1alpha1</span>
-      <h1>The self-hostable control plane for Kubernetes&nbsp;app operations</h1>
+      <span class="badge">Pilot program open</span>
+      <h1>Your organization's workspace, on infrastructure you control</h1>
       <p class="lead hero__lead">
-        vWorkspace installs, upgrades, backs up, and operates applications across
-        your clusters — Helm-first, with <strong>no inbound ports</strong> and
-        <strong>no kubeconfig</strong> handed to the control plane.
+        vWorkspace gives your team everything a modern workspace needs — apps,
+        secure networking, backups, and <strong>private AI</strong> — without
+        handing your data to a public cloud. Deploy it on your own clusters, or
+        get it preinstalled and supported on a ready-to-run appliance.
       </p>
       <div class="btn-row hero__cta">
-        <a class="btn btn--primary" href={links.quickstart} target="_blank" rel="noopener">Get started</a>
-        <a class="btn btn--secondary" href={links.operatorDocs} target="_blank" rel="noopener">Read the docs</a>
+        <a class="btn btn--primary" href={links.contact}>Request a pilot</a>
+        <a class="btn btn--secondary" href="/platform/">See how it works</a>
       </div>
-      <p class="hero__note muted">Open source · AGPL-3.0 · Runs on any conformant Kubernetes</p>
+      <p class="hero__note muted">Open platform · Runs on any conformant Kubernetes · We install and support</p>
     </div>
 
     <div class="container">
@@ -98,12 +99,12 @@ const builtOn = ["Kubernetes", "Helm", "Flux CD", "Velero", "Argo Workflows"];
         <div class="arch__node">
           <span class="arch__tag">Control plane</span>
           <strong>vWorkspace Server</strong>
-          <span class="muted">Declares intent · audits</span>
+          <span class="muted">Catalog · operations · audit</span>
         </div>
         <div class="arch__link">
-          <span>Pull / Push / GitOps</span>
+          <span>Pull mode</span>
           <div class="arch__line"></div>
-          <span class="muted">narrow HTTP + CRD contract</span>
+          <span class="muted">outbound HTTPS · CRD contract</span>
         </div>
         <div class="arch__node arch__node--brand">
           <span class="arch__tag">In your cluster</span>
@@ -112,24 +113,92 @@ const builtOn = ["Kubernetes", "Helm", "Flux CD", "Velero", "Argo Workflows"];
         </div>
       </div>
       <div class="arch__downstream">
-        <span class="muted">drives</span>
+        <span class="muted">built on</span>
         {builtOn.map((b) => <span class="chip">{b}</span>)}
       </div>
     </div>
   </section>
 
-  <!-- Components -->
+  <!-- Why / platform pillars -->
   <section class="section section--alt">
     <div class="container">
-      <span class="eyebrow">Architecture</span>
-      <h2 class="section__title">Three moving parts, one contract</h2>
+      <span class="eyebrow">The platform</span>
+      <h2 class="section__title">Everything an organization needs to own its stack</h2>
+      <div class="features">
+        {
+          pillars.map((f) => (
+            <div class="feature">
+              <h3>{f.title}</h3>
+              <p class="muted">{f.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Apps -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Applications</span>
+      <h2 class="section__title">A growing catalog, starting with the essentials</h2>
       <p class="lead measure">
-        A small, legible system: a control plane, a cluster-side operator, and two
-        custom resources that model everything in between.
+        Apps deploy from the catalog with GitOps under the hood. Today's set covers
+        files, networking, and org tools — the catalog is built to grow.
       </p>
       <div class="cards">
         {
-          components.map((c) => (
+          apps.map((a) => (
+            <article class="card">
+              <div class="card__head">
+                <h3>{a.name}</h3>
+                <span class="card__sub">{a.sub}</span>
+              </div>
+              <p>{a.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- AI teaser -->
+  <section class="section section--alt">
+    <div class="container split">
+      <div>
+        <span class="eyebrow">Private AI</span>
+        <h2 class="section__title">AI that works for your IT — on your GPU</h2>
+        <p class="muted">
+          vWorkspace treats private inference as a platform capability: triage
+          Nextcloud sync failures from debug bundles, analyze cluster logs and
+          health, and handle routine admin tasks like provisioning users — all on
+          your hardware, all with admin approval. No data leaves your
+          infrastructure, and no autonomous changes, ever.
+        </p>
+        <a href="/ai/" class="inline-link">Learn about private AI →</a>
+      </div>
+      <div class="flow" aria-label="Debug bundle AI flow">
+        <div class="flow__step"><span>1</span> User uploads debug bundle</div>
+        <div class="flow__arrow">↓</div>
+        <div class="flow__step"><span>2</span> Local GPU analyzes (read-only)</div>
+        <div class="flow__arrow">↓</div>
+        <div class="flow__step"><span>3</span> Admin gets ranked suggestions</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Under the hood -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Under the hood</span>
+      <h2 class="section__title">A small, legible system</h2>
+      <p class="lead measure">
+        One control plane, one pull-mode operator per cluster, and two CRDs
+        reconciled by controllers you already trust.
+      </p>
+      <div class="cards">
+        {
+          platformParts.map((c) => (
             <article class="card">
               <div class="card__head">
                 <h3>{c.name}</h3>
@@ -146,39 +215,29 @@ const builtOn = ["Kubernetes", "Helm", "Flux CD", "Velero", "Argo Workflows"];
     </div>
   </section>
 
-  <!-- How it works -->
-  <section class="section">
-    <div class="container">
-      <span class="eyebrow">How it works</span>
-      <h2 class="section__title">From intent to reconciled state</h2>
-      <div class="steps">
-        {
-          steps.map((s) => (
-            <div class="step">
-              <span class="step__n">{s.n}</span>
-              <h3>{s.title}</h3>
-              <p class="muted">{s.body}</p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Why -->
+  <!-- Appliance option -->
   <section class="section section--alt">
-    <div class="container">
-      <span class="eyebrow">Why vWorkspace</span>
-      <h2 class="section__title">Built for platform teams who value restraint</h2>
-      <div class="features">
-        {
-          features.map((f) => (
-            <div class="feature">
-              <h3>{f.title}</h3>
-              <p class="muted">{f.body}</p>
-            </div>
-          ))
-        }
+    <div class="container split">
+      <div>
+        <span class="eyebrow">Prefer it ready to run?</span>
+        <h2 class="section__title">The vWorkspace appliance</h2>
+        <p class="muted">
+          Don't want to operate Kubernetes yourself? The same platform ships
+          preinstalled and supported on a hardware appliance at your site —
+          control plane, apps, networking, backups, and a GPU for private AI,
+          working out of the box. We install it; you own it.
+        </p>
+        <a href={links.contact} class="inline-link">Request a pilot →</a>
+      </div>
+      <div class="box" aria-label="Appliance contents">
+        <span class="box__tag">In the box</span>
+        <ul class="box__list">
+          <li>vWorkspace Server + operator, preconfigured</li>
+          <li>Nextcloud · NetBird · Odoo-for-Org</li>
+          <li>GPU for on-prem AI inference</li>
+          <li>Velero backups + audit trail</li>
+          <li>Installed and supported by vWorkspace</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -187,14 +246,13 @@ const builtOn = ["Kubernetes", "Helm", "Flux CD", "Velero", "Argo Workflows"];
 </BaseLayout>
 
 <style>
-  /* Hero */
   .hero {
     position: relative;
     padding-top: clamp(72px, 9vw, 120px);
     padding-bottom: clamp(48px, 6vw, 80px);
     background:
-      radial-gradient(820px 420px at 78% -8%, rgba(99, 102, 241, 0.14), transparent 62%),
-      radial-gradient(620px 360px at 6% 4%, rgba(6, 182, 212, 0.1), transparent 60%);
+      radial-gradient(820px 420px at 78% -8%, rgba(0, 105, 255, 0.12), transparent 62%),
+      radial-gradient(620px 360px at 6% 4%, rgba(42, 157, 143, 0.1), transparent 60%);
   }
   .hero__inner {
     text-align: center;
@@ -204,21 +262,21 @@ const builtOn = ["Kubernetes", "Helm", "Flux CD", "Velero", "Argo Workflows"];
     font-size: 13px;
     font-weight: 600;
     color: var(--brand-600);
-    background: rgba(79, 70, 229, 0.08);
-    border: 1px solid rgba(79, 70, 229, 0.2);
+    background: rgba(0, 105, 255, 0.08);
+    border: 1px solid rgba(0, 105, 255, 0.2);
     padding: 6px 13px;
     border-radius: 999px;
     margin-bottom: 24px;
   }
   .hero h1 {
-    font-size: clamp(36px, 5.4vw, 60px);
-    max-width: 16ch;
+    font-size: clamp(34px, 5vw, 56px);
+    max-width: 20ch;
     margin-inline: auto;
     font-weight: 720;
   }
   .hero__lead {
     margin: 24px auto 0;
-    max-width: 62ch;
+    max-width: 64ch;
   }
   .hero__lead strong {
     color: var(--ink-800);
@@ -256,8 +314,8 @@ const builtOn = ["Kubernetes", "Helm", "Flux CD", "Velero", "Argo Workflows"];
     background: var(--surface-2);
   }
   .arch__node--brand {
-    border-color: rgba(79, 70, 229, 0.4);
-    background: linear-gradient(180deg, rgba(79, 70, 229, 0.06), rgba(79, 70, 229, 0.02));
+    border-color: rgba(0, 105, 255, 0.4);
+    background: linear-gradient(180deg, rgba(0, 105, 255, 0.06), rgba(0, 105, 255, 0.02));
   }
   .arch__node strong {
     font-size: 18px;
@@ -321,7 +379,6 @@ const builtOn = ["Kubernetes", "Helm", "Flux CD", "Velero", "Argo Workflows"];
     padding: 6px 14px;
   }
 
-  /* Section scaffolding */
   .section--alt {
     background: var(--surface-2);
     border-block: 1px solid var(--line);
@@ -329,10 +386,9 @@ const builtOn = ["Kubernetes", "Helm", "Flux CD", "Velero", "Argo Workflows"];
   .section__title {
     font-size: clamp(26px, 3.6vw, 38px);
     margin-bottom: 16px;
-    max-width: 20ch;
+    max-width: 24ch;
   }
 
-  /* Cards */
   .cards {
     margin-top: 44px;
     display: grid;
@@ -377,30 +433,6 @@ const builtOn = ["Kubernetes", "Helm", "Flux CD", "Velero", "Argo Workflows"];
     font-size: 15px;
   }
 
-  /* Steps */
-  .steps {
-    margin-top: 44px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 36px;
-  }
-  .step__n {
-    font-family: var(--font-mono);
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--brand-600);
-    display: inline-block;
-    margin-bottom: 12px;
-  }
-  .step h3 {
-    font-size: 19px;
-    margin-bottom: 8px;
-  }
-  .step p {
-    font-size: 15px;
-  }
-
-  /* Features */
   .features {
     margin-top: 44px;
     display: grid;
@@ -415,11 +447,88 @@ const builtOn = ["Kubernetes", "Helm", "Flux CD", "Velero", "Argo Workflows"];
     font-size: 15px;
   }
 
+  .split {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .inline-link {
+    display: inline-block;
+    margin-top: 20px;
+    font-weight: 600;
+  }
+  .flow {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .flow__step {
+    font-size: 15px;
+    color: var(--ink-700);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .flow__step span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(0, 105, 255, 0.1);
+    color: var(--brand-600);
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .flow__arrow {
+    text-align: center;
+    color: var(--ink-400);
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .box {
+    background: var(--surface);
+    border: 1px solid rgba(0, 105, 255, 0.3);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+  .box__tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brand-600);
+    margin-bottom: 14px;
+  }
+  .box__list {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--ink-500);
+    font-size: 15px;
+  }
+  .box__list li::marker {
+    color: var(--brand-600);
+  }
+
   @media (max-width: 920px) {
     .cards,
-    .steps,
     .features {
       grid-template-columns: 1fr 1fr;
+    }
+    .split {
+      grid-template-columns: 1fr;
     }
   }
   @media (max-width: 720px) {
@@ -434,7 +543,6 @@ const builtOn = ["Kubernetes", "Helm", "Flux CD", "Velero", "Argo Workflows"];
       width: 60px;
     }
     .cards,
-    .steps,
     .features {
       grid-template-columns: 1fr;
     }
