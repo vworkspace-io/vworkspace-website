@@ -7,7 +7,7 @@ import { links } from "../config";
 const principles = [
   {
     title: "Customers own their stack",
-    body: "One organization per install. You own the domain, the data, and the upgrade cadence — vWorkspace installs, supports, and gets out of the way.",
+    body: "One organization per installation. Customers own their data, identities, credentials, storage destinations, and deployment environment.",
   },
   {
     title: "Open platform, commercial delivery",
@@ -19,7 +19,7 @@ const principles = [
   },
   {
     title: "Built with pilot customers",
-    body: "We co-design the product with reference customers from real friction — not a generic signup funnel. Roadmap and design live in the open on GitHub.",
+    body: "We develop from concrete operational friction with reference customers. Product direction, design, and tracking remain visible on GitHub.",
   },
 ];
 
@@ -32,12 +32,12 @@ const repos = [
 
 <BaseLayout
   title="Company"
-  description="vWorkspace builds the private workspace platform — developed in the open, delivered preinstalled and supported on appliances at customer sites."
+  description="vWorkspace builds a private workspace appliance with integrated applications, identity, storage, backup, secure access, and a human-approved AI specialist team."
 >
   <PageHero
     eyebrow="Company"
-    title="Building the private workspace platform"
-    text="vWorkspace develops its platform in the open and delivers it as a product: preinstalled, supported, and running on infrastructure our customers own."
+    title="Making private infrastructure useful to real organizations"
+    text="vWorkspace turns open infrastructure into a guided product: a private workspace, an AI specialist team, and a supported operating model on infrastructure the customer controls."
   />
 
   <section class="section section--tight">
@@ -58,8 +58,8 @@ const repos = [
 
   <section class="section section--alt">
     <div class="container">
-      <span class="eyebrow">Repositories</span>
-      <h2 class="title">Three repositories, one project</h2>
+      <span class="eyebrow">Built in the open</span>
+      <h2 class="title">Three repositories, one product</h2>
       <div class="repos">
         {
           repos.map((r) => (
@@ -77,11 +77,12 @@ const repos = [
         <a href={links.governance} target="_blank" rel="noopener">Governance</a>
         <a href={links.contributing} target="_blank" rel="noopener">Contributing</a>
         <a href={links.security} target="_blank" rel="noopener">Security policy</a>
-        <a href={links.license} target="_blank" rel="noopener">License</a>
+        <a href="/open-source/">Open-source overview</a>
       </div>
       <p class="muted license-note">
-        The platform is developed in the open and remains self-hostable.
-        Commercial offerings cover hardware, installation, and support.
+        Licensing is stated per repository. See the
+        <a href="/open-source/">open-source overview</a> for the architecture,
+        documentation, and commercial delivery model.
       </p>
     </div>
   </section>
@@ -90,7 +91,7 @@ const repos = [
     title="Work with vWorkspace"
     text="Evaluating a private workspace for your organization? Request a pilot. Want to build with us? Everything lives on GitHub."
     primaryLabel="Request a pilot"
-    primaryHref={links.contact}
+    primaryHref={links.pilot}
     secondaryLabel="Explore on GitHub"
     secondaryHref={links.github}
   />

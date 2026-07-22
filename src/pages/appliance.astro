@@ -1,0 +1,196 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import CTA from "../components/CTA.astro";
+
+const included = [
+  ["Control plane", "Workspace Home, cluster registration, catalog, operations, storage, audit, and AI orchestration."],
+  ["Private cluster", "A supported Kubernetes environment with the vWorkspace operator and application delivery stack."],
+  ["Core services", "A deployment designed around Nextcloud, NetBird, vWorkspace SSO, and organization tools."],
+  ["AI runtime", "Local inference on suitable GPU hardware where configured, with an approved cloud-provider option."],
+  ["Data protection", "Bring-your-own S3 integration and supported Velero backup workflows."],
+  ["Guided delivery", "Installation, configuration, product walkthrough, onboarding, and acceptance review."],
+];
+
+const journey = [
+  ["Fit assessment", "Confirm users, applications, data sensitivity, sites, storage, networking, and AI requirements."],
+  ["Deployment design", "Agree hardware, cluster topology, identity flow, storage targets, and acceptance criteria."],
+  ["Installation", "Prepare the appliance, connect the environment, and deploy the agreed core services."],
+  ["Team onboarding", "Walk administrators and users through the workspace, AI Team, and approval model."],
+  ["Acceptance review", "Validate service health, access, backup operations, and the agreed pilot workflows."],
+];
+---
+
+<BaseLayout
+  title="Appliance"
+  description="Get vWorkspace delivered as a ready-to-run private workspace appliance with guided setup, applications, secure access, private AI, storage, backups, and support."
+>
+  <PageHero
+    eyebrow="vWorkspace appliance"
+    title="Private cloud outcomes without building a private cloud team"
+    text="Get vWorkspace preinstalled on hardware for your site, with guided setup, application deployment, private AI, and ongoing support."
+  />
+
+  <section class="section section--tight">
+    <div class="container content-split">
+      <div>
+        <span class="eyebrow">What arrives</span>
+        <h2 class="section-title">A product, not a box of parts</h2>
+        <p class="lead">
+          The appliance packages the open infrastructure, control plane, and
+          operating workflows into one supported installation for your
+          organization.
+        </p>
+      </div>
+      <div class="included">
+        {included.map(([title, body]) => (
+          <article>
+            <h3>{title}</h3>
+            <p class="muted">{body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Ownership</span>
+      <h2 class="section-title">We deliver it with you. You remain in control.</h2>
+      <div class="ownership">
+        <article>
+          <span class="content-card__label">You own</span>
+          <h3>Your environment and data</h3>
+          <ul class="plain-list muted">
+            <li>Hardware and deployment environment</li>
+            <li>Organizational data and identities</li>
+            <li>Infrastructure and provider credentials</li>
+            <li>Storage destinations and backup copies</li>
+            <li>The option to continue operating the open core</li>
+          </ul>
+        </article>
+        <article>
+          <span class="content-card__label">We manage with you</span>
+          <h3>Productized delivery and support</h3>
+          <ul class="plain-list muted">
+            <li>Deployment design and installation</li>
+            <li>Core configuration and application setup</li>
+            <li>Guided updates and diagnostics</li>
+            <li>Administrator enablement</li>
+            <li>Support under the agreed pilot scope</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Pilot journey</span>
+      <h2 class="section-title">A guided path from fit to acceptance</h2>
+      <ol class="journey">
+        {journey.map(([title, body], index) => (
+          <li>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <h3>{title}</h3>
+              <p class="muted">{body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container content-split">
+      <div>
+        <span class="eyebrow">Current scope</span>
+        <h2 class="section-title">Built for a focused private pilot</h2>
+      </div>
+      <div class="callout">
+        <strong>One organization per installation</strong>
+        <p class="muted">
+          The current appliance path is a private alpha/pilot for a single
+          organization. Production high availability and multi-tenant SaaS are
+          not current product claims; the pilot scope and acceptance criteria
+          are agreed before installation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    title="Assess your appliance fit"
+    text="Tell us about your organization, applications, infrastructure, and data-control requirements. We will respond with the next practical step."
+    secondaryLabel="Review pilot questions"
+    secondaryHref="/pilot/"
+  />
+</BaseLayout>
+
+<style>
+  .included {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 28px;
+    border-top: 1px solid var(--line);
+  }
+  .included article {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .included h3 {
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+  .included p {
+    font-size: 14px;
+  }
+  .ownership {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 36px;
+  }
+  .ownership article {
+    padding: 32px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .ownership h3 {
+    font-size: 21px;
+  }
+  .journey {
+    margin: 36px 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+  .journey li {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .journey li > span {
+    color: var(--brand-600);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .journey h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+  .journey p {
+    font-size: 15px;
+  }
+  @media (max-width: 720px) {
+    .included,
+    .ownership {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

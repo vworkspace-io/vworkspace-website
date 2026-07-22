@@ -20,14 +20,15 @@ subdomains (`operator.docs.vworkspace.io`, `server.docs.vworkspace.io`).
 src/
 ├── components/   # Header, Footer, Logo, CTA, PageHero
 ├── layouts/      # BaseLayout (head/meta, header, footer)
-├── pages/        # index, platform, solutions, company, 404
+├── pages/        # home, product, AI Team, solutions, appliance, open source, pilot, company
 ├── styles/       # global.css (design tokens)
 └── config.ts     # nav, links, footer — single source of truth
 public/            # CNAME, robots.txt, favicon, .nojekyll
 ```
 
 Adding a page = drop a `.astro` file in `src/pages/` and (optionally) add it to
-`nav` in `src/config.ts`.
+`nav` in `src/config.ts`. Legacy `/platform` and `/ai` routes redirect to
+`/product` and `/ai-team` through `astro.config.mjs`.
 
 ## Develop
 

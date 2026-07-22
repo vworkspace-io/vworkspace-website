@@ -1,0 +1,189 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import CTA from "../components/CTA.astro";
+import { links } from "../config";
+
+const capabilities = [
+  {
+    label: "Start here",
+    title: "Workspace Home",
+    body: "A role-aware launchpad brings onboarding progress, service health, applications, the AI Team, and administrative shortcuts into one calm starting point.",
+  },
+  {
+    label: "Applications",
+    title: "Catalog-driven deployment",
+    body: "Deploy supported applications from a curated catalog. vWorkspace records intent while the cluster-side operator and Flux handle reconciliation.",
+  },
+  {
+    label: "Identity",
+    title: "vWorkspace SSO",
+    body: "Use the workspace as the organizational identity source, then manage onboarding and downstream user lifecycle workflows from one place.",
+  },
+  {
+    label: "Operations",
+    title: "Audited day-two work",
+    body: "Prepare backup, restore, upgrade, runbook, and command operations with preconditions, approvals, status, and an audit trail.",
+  },
+  {
+    label: "Data",
+    title: "Storage and backup",
+    body: "Register your own S3-compatible storage, browse and move objects, connect Velero backup locations, and review backup state.",
+  },
+  {
+    label: "Connectivity",
+    title: "Outbound pull mode",
+    body: "The supported operator path reaches the control plane over outbound HTTPS. The control plane does not need a kubeconfig or inbound cluster access.",
+  },
+];
+
+const stack = [
+  ["Control plane", "Workspace UI, catalog, identity, operations, storage, audit, and AI orchestration."],
+  ["Cluster operator", "Applies declared work locally and reports status through the pull-mode agent."],
+  ["Open controllers", "Flux and Helm reconcile applications; Velero handles supported backup operations."],
+  ["AI runtime", "Use local models on your own GPU by default, or configure an approved OpenAI-compatible provider."],
+];
+---
+
+<BaseLayout
+  title="Product"
+  description="Explore the vWorkspace product: workspace home, catalog applications, vWorkspace SSO, audited operations, BYO S3 storage, backups, and secure pull-mode cluster management."
+>
+  <PageHero
+    eyebrow="Product"
+    title="One control plane for your private workspace"
+    text="vWorkspace turns applications, identities, storage, infrastructure, and operations into a guided experience for administrators and teams."
+  />
+
+  <section class="section section--tight">
+    <div class="container">
+      <span class="eyebrow">The workspace</span>
+      <h2 class="section-title">From first login to daily operations</h2>
+      <p class="lead section-intro">
+        One organizational workspace connects the tools people use with the
+        controls administrators need. The current product is designed for one
+        organization per installation.
+      </p>
+      <div class="content-grid content-grid--3">
+        {capabilities.map((item) => (
+          <article class="content-card">
+            <span class="content-card__label">{item.label}</span>
+            <h3>{item.title}</h3>
+            <p class="muted">{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container content-split">
+      <div>
+        <span class="eyebrow">Applications</span>
+        <h2 class="section-title">Start with the essentials</h2>
+        <p class="muted">
+          Nextcloud is the flagship file and collaboration workload. NetBird
+          provides private access, while organization tools and vWorkspace SSO
+          connect people to the workspace around them.
+        </p>
+        <a class="text-link" href="/solutions/">See product workflows →</a>
+      </div>
+      <div class="callout">
+        <strong>Catalog intent, open execution</strong>
+        <p class="muted">
+          vWorkspace submits a narrow application contract. Kubernetes, Flux,
+          and Helm perform the cluster-side work so the resulting state remains
+          visible and auditable.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Under the hood</span>
+      <h2 class="section-title">Open infrastructure, guided delivery</h2>
+      <p class="lead section-intro">
+        The platform uses established open-source components, but customers do
+        not have to assemble each layer into a product themselves.
+      </p>
+      <div class="stack">
+        {stack.map(([name, detail]) => (
+          <div class="stack__row">
+            <strong>{name}</strong>
+            <p class="muted">{detail}</p>
+          </div>
+        ))}
+      </div>
+      <div class="btn-row docs-row">
+        <a class="btn btn--secondary" href={links.operatorDocs} target="_blank" rel="noopener">Read operator docs</a>
+        <a class="btn btn--secondary" href={links.serverDocs} target="_blank" rel="noopener">Read server docs</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container content-split">
+      <div>
+        <span class="eyebrow">Deployment</span>
+        <h2 class="section-title">Run it your way</h2>
+      </div>
+      <div class="deployment">
+        <article>
+          <h3>Ready-to-run appliance</h3>
+          <p class="muted">Installed and supported hardware for organizations that want the outcome without building the platform team.</p>
+          <a class="text-link" href="/appliance/">Explore the appliance →</a>
+        </article>
+        <article>
+          <h3>Your own infrastructure</h3>
+          <p class="muted">Deploy the open core on a conformant Kubernetes cluster and connect your storage and preferred AI runtime.</p>
+          <a class="text-link" href={links.quickstart} target="_blank" rel="noopener">Open the quickstart →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</BaseLayout>
+
+<style>
+  .stack {
+    margin-top: 36px;
+    border-top: 1px solid var(--line);
+  }
+  .stack__row {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 24px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .stack__row strong {
+    color: var(--ink-900);
+    font-size: 15px;
+  }
+  .stack__row p {
+    font-size: 15px;
+  }
+  .docs-row {
+    margin-top: 28px;
+  }
+  .deployment {
+    display: grid;
+    gap: 32px;
+  }
+  .deployment article + article {
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .deployment h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  @media (max-width: 720px) {
+    .stack__row {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+  }
+</style>

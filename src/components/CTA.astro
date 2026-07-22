@@ -9,13 +9,14 @@ interface Props {
   secondaryHref?: string;
 }
 const {
-  title = "Own your workspace",
-  text = "Join the pilot program and get vWorkspace preinstalled and supported on hardware at your site — or deploy the platform on your own cluster.",
+  title = "Bring your workspace back under your control",
+  text = "Join the pilot for a guided deployment, product walkthrough, and fit assessment.",
   primaryLabel = "Request a pilot",
-  primaryHref = links.contact,
-  secondaryLabel = "Get started",
-  secondaryHref = links.quickstart,
+  primaryHref = links.pilot,
+  secondaryLabel = "Explore the product",
+  secondaryHref = "/product/",
 } = Astro.props;
+const secondaryExternal = secondaryHref.startsWith("http");
 ---
 
 <section class="cta">
@@ -24,7 +25,13 @@ const {
     <p>{text}</p>
     <div class="btn-row cta__row">
       <a class="btn btn--on-dark" href={primaryHref}>{primaryLabel}</a>
-      <a class="btn btn--ghost-on-dark" href={secondaryHref} target="_blank" rel="noopener">{secondaryLabel}</a>
+      <a
+        class="btn btn--ghost-on-dark"
+        href={secondaryHref}
+        {...(secondaryExternal ? { target: "_blank", rel: "noopener" } : {})}
+      >
+        {secondaryLabel}
+      </a>
     </div>
   </div>
 </section>

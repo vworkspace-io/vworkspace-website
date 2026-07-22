@@ -2,17 +2,17 @@ export const site = {
   name: "vWorkspace",
   domain: "vworkspace.io",
   url: "https://vworkspace.io",
-  tagline: "The private workspace platform for organizations that own their data",
+  tagline: "Your private workspace. Your AI team. Your infrastructure.",
   description:
-    "vWorkspace runs your organization's workspace on infrastructure you control — apps, secure networking, backups, and private AI. Deploy it on your own clusters, or get it preinstalled and supported on a ready-to-run appliance.",
+    "vWorkspace brings files, secure access, business tools, backups, and an AI specialist team together on infrastructure your organization controls.",
 };
 
-export const nav = [
+export const nav: Array<{ label: string; href: string; external?: boolean }> = [
+  { label: "Product", href: "/product/" },
+  { label: "AI Team", href: "/ai-team/" },
   { label: "Solutions", href: "/solutions/" },
-  { label: "Platform", href: "/platform/" },
-  { label: "AI", href: "/ai/" },
-  { label: "Company", href: "/company/" },
-  { label: "Docs", href: "https://operator.docs.vworkspace.io/", external: true },
+  { label: "Appliance", href: "/appliance/" },
+  { label: "Open Source", href: "/open-source/" },
 ];
 
 export const links = {
@@ -27,6 +27,7 @@ export const links = {
   apiRef: "https://operator.docs.vworkspace.io/api/",
   contact: "mailto:maintainers@vworkspace.io",
   contactEmail: "maintainers@vworkspace.io",
+  pilot: "/pilot/",
   governance:
     "https://github.com/vworkspace-io/vworkspace-operator/blob/main/GOVERNANCE.md",
   security:
@@ -40,10 +41,10 @@ export const footerColumns = [
   {
     title: "Product",
     items: [
+      { label: "Product", href: "/product/" },
+      { label: "AI Team", href: "/ai-team/" },
       { label: "Solutions", href: "/solutions/" },
-      { label: "Platform", href: "/platform/" },
-      { label: "Private AI", href: "/ai/" },
-      { label: "Quickstart", href: links.quickstart, external: true },
+      { label: "Appliance", href: "/appliance/" },
     ],
   },
   {
@@ -57,6 +58,7 @@ export const footerColumns = [
   {
     title: "Open source",
     items: [
+      { label: "Overview", href: "/open-source/" },
       { label: "vworkspace", href: links.vworkspace, external: true },
       { label: "vworkspace-server", href: links.server, external: true },
       { label: "vworkspace-operator", href: links.operator, external: true },
@@ -66,7 +68,8 @@ export const footerColumns = [
     title: "Company",
     items: [
       { label: "About", href: "/company/" },
-      { label: "Contact", href: links.contact },
+      { label: "Request a pilot", href: links.pilot },
+      { label: "Email us", href: links.contact },
       { label: "Governance", href: links.governance, external: true },
       { label: "Security", href: links.security, external: true },
     ],

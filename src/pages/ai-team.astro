@@ -1,0 +1,186 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import CTA from "../components/CTA.astro";
+
+const specialists = [
+  ["@AI_PM", "Planning", "Turns requests into structured plans, tasks, and progress updates."],
+  ["@AI_Nextcloud", "Files", "Investigates Nextcloud health, configuration, files, and operational issues."],
+  ["@AI_DevOps", "Infrastructure", "Analyzes cluster and infrastructure context through defined tools."],
+  ["@AI_Users", "Identity", "Reviews identity and onboarding state and prepares lifecycle changes."],
+  ["@AI_Netbird", "Access", "Inspects private-access configuration and prepares approved changes."],
+  ["@AI_Storage", "Data", "Reviews S3 and backup state and can prepare an approved backup action."],
+  ["@AI_Screenshot", "Visual support", "Captures pages for visual support and troubleshooting workflows."],
+];
+
+const steps = [
+  ["Ask", "Mention @AI in Discuss and describe the outcome or problem in plain language."],
+  ["Route", "The coordinator selects a specialist based on the request and available capabilities."],
+  ["Investigate", "The specialist uses approved read tools and workspace context to build an answer."],
+  ["Propose", "When a change is needed, the specialist prepares a clear plan card."],
+  ["Approve", "An authorized person approves or rejects sensitive actions before execution."],
+  ["Audit", "The conversation, operation state, and high-signal events remain available for review."],
+];
+---
+
+<BaseLayout
+  title="AI Team"
+  description="Meet the vWorkspace AI Team: private, domain-focused specialists for planning, Nextcloud, infrastructure, users, NetBird, storage, and visual support with human-approved changes."
+>
+  <PageHero
+    eyebrow="AI Team"
+    title="A team of private AI specialists for your workspace"
+    text="@AI coordinates specialists that understand your applications, users, infrastructure, and operational policies. Use local models on your own GPU by default, or connect an approved OpenAI-compatible provider."
+  />
+
+  <section class="section section--tight">
+    <div class="container content-split">
+      <div>
+        <span class="eyebrow">One conversation</span>
+        <h2 class="section-title">Ask once. The right specialist takes it from there.</h2>
+        <p class="muted">
+          Use Discuss to investigate an issue, review workspace health, plan
+          work, or prepare an operational change. The coordinator routes the
+          request and brings the result back into the same conversation.
+        </p>
+      </div>
+      <div class="prompt-list" aria-label="Example requests">
+        <p>“Which users have not completed onboarding?”</p>
+        <p>“Check Nextcloud health and explain the risk.”</p>
+        <p>“Show our backup status and prepare a new backup.”</p>
+        <p>“Turn this requirement into an implementation plan.”</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Specialists</span>
+      <h2 class="section-title">Focused expertise, coordinated by @AI</h2>
+      <div class="content-grid content-grid--3">
+        {specialists.map(([handle, area, body]) => (
+          <article class="content-card">
+            <span class="content-card__label">{area}</span>
+            <h3><code>{handle}</code></h3>
+            <p class="muted">{body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Interaction model</span>
+      <h2 class="section-title">From question to accountable action</h2>
+      <div class="process">
+        {steps.map(([name, body], index) => (
+          <article class="process__step">
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <h3>{name}</h3>
+              <p class="muted">{body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container content-split">
+      <div>
+        <span class="eyebrow">Safety model</span>
+        <h2 class="section-title">AI reads first. People approve change.</h2>
+        <p class="muted">
+          Read-only work can run directly through defined tools. Changes that
+          affect users, applications, networking, or storage require explicit
+          approval from an authorized person.
+        </p>
+      </div>
+      <aside class="boundary">
+        <strong>Honest boundary</strong>
+        <p>
+          vWorkspace AI is not an unrestricted autonomous administrator. It
+          works through defined tools and permissions, separates reads from
+          writes, and requires approval for sensitive changes. Capability
+          coverage varies by specialist and deployment.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <CTA
+    title="See the AI Team in context"
+    text="Join the pilot for a guided walkthrough of specialist routing, live workspace context, and approval-gated operations."
+    secondaryLabel="Explore the product"
+    secondaryHref="/product/"
+  />
+</BaseLayout>
+
+<style>
+  .prompt-list {
+    display: grid;
+    gap: 12px;
+  }
+  .prompt-list p {
+    padding: 16px 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--ink-800);
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+  .process {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .process__step {
+    min-height: 190px;
+    padding: 24px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .process__step > span {
+    color: var(--brand-600);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .process__step h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .process__step p {
+    font-size: 15px;
+  }
+  .boundary {
+    background: var(--ink-900);
+    border-radius: var(--radius);
+    padding: 28px;
+    color: var(--dark-muted);
+  }
+  .boundary strong {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+  .boundary p {
+    font-size: 15px;
+  }
+  @media (max-width: 820px) {
+    .process {
+      grid-template-columns: 1fr;
+    }
+    .process__step {
+      min-height: auto;
+    }
+  }
+</style>
