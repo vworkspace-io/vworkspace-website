@@ -6,6 +6,10 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://vworkspace.io",
   integrations: [sitemap()],
+  redirects: {
+    "/platform": "/product",
+    "/ai": "/ai-team",
+  },
   build: {
     inlineStylesheets: "auto",
   },

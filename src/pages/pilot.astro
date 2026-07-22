@@ -1,0 +1,176 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { links } from "../config";
+
+const subject = encodeURIComponent("vWorkspace pilot request");
+const body = encodeURIComponent(`Hello vWorkspace team,
+
+Organization:
+Team size:
+Country / deployment site:
+Current file or workspace tools:
+Preferred deployment: appliance / own cluster / unsure
+Private AI requirements:
+Storage and backup requirements:
+What would make a pilot successful?
+
+Thank you.`);
+const pilotMailto = `${links.contact}?subject=${subject}&body=${body}`;
+
+const questions = [
+  "What does your organization use today for files, access, identity, and collaboration?",
+  "How many people and deployment sites need to use the workspace?",
+  "Do you prefer a ready-to-run appliance, your own Kubernetes environment, or help deciding?",
+  "Which data, AI, storage, backup, or network constraints matter most?",
+  "What outcome would make the pilot successful for your team?",
+];
+
+const nextSteps = [
+  ["We review the fit", "We compare your requirements with the current single-organization pilot scope."],
+  ["We schedule a walkthrough", "We focus the product demonstration on your applications, AI, identity, and operations needs."],
+  ["We design the pilot", "If there is a fit, we agree deployment responsibilities, acceptance criteria, and the next commercial step."],
+];
+---
+
+<BaseLayout
+  title="Request a Pilot"
+  description="Request a vWorkspace pilot for your organization. Share your deployment, application, data, AI, storage, and operational requirements for a guided fit assessment."
+>
+  <PageHero
+    eyebrow="Pilot program"
+    title="See whether vWorkspace fits your organization"
+    text="Tell us what you need to operate privately, what you run today, and what success would look like. We will respond with the next practical step."
+  />
+
+  <section class="section section--tight">
+    <div class="container pilot-grid">
+      <div>
+        <span class="eyebrow">Start the conversation</span>
+        <h2 class="section-title">A useful request takes a few minutes</h2>
+        <p class="muted">
+          The pilot is currently designed for one organization per
+          installation. We work best with teams that need private files, secure
+          access, guided operations, backups, and practical AI on infrastructure
+          they control.
+        </p>
+        <a class="btn btn--primary email-button" href={pilotMailto}>Email your pilot request</a>
+        <p class="email-note muted">
+          This opens a prefilled email to <a href={links.contact}>{links.contactEmail}</a>.
+          You can edit every field before sending.
+        </p>
+      </div>
+      <aside class="questions">
+        <h2>What to include</h2>
+        <ol>
+          {questions.map((question) => <li>{question}</li>)}
+        </ol>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">What happens next</span>
+      <h2 class="section-title">A short, explicit qualification process</h2>
+      <div class="next-steps">
+        {nextSteps.map(([title, body], index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h3>{title}</h3>
+            <p class="muted">{body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container content-split">
+      <div>
+        <span class="eyebrow">Current scope</span>
+        <h2 class="section-title">Clarity before commitment</h2>
+      </div>
+      <div class="callout">
+        <strong>Private alpha / pilot</strong>
+        <p class="muted">
+          vWorkspace does not currently claim multi-tenant SaaS or production
+          high availability. Hardware, installation, support, timelines, and
+          acceptance criteria are defined for each pilot before work begins.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .pilot-grid {
+    display: grid;
+    grid-template-columns: 1fr 0.9fr;
+    gap: clamp(40px, 8vw, 96px);
+    align-items: start;
+  }
+  .email-button {
+    margin-top: 28px;
+  }
+  .email-note {
+    margin-top: 14px;
+    font-size: 13px;
+  }
+  .email-note a {
+    text-decoration: underline;
+  }
+  .questions {
+    padding: 30px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .questions h2 {
+    font-size: 20px;
+  }
+  .questions ol {
+    margin: 22px 0 0;
+    padding-left: 22px;
+    display: grid;
+    gap: 16px;
+  }
+  .questions li {
+    padding-left: 6px;
+    color: var(--ink-700);
+    font-size: 14px;
+  }
+  .questions li::marker {
+    color: var(--brand-600);
+    font-family: var(--font-mono);
+    font-weight: 700;
+  }
+  .next-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 36px;
+  }
+  .next-steps article {
+    padding-top: 20px;
+    border-top: 2px solid var(--ink-900);
+  }
+  .next-steps span {
+    color: var(--brand-600);
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+  .next-steps h3 {
+    margin: 18px 0 8px;
+    font-size: 18px;
+  }
+  .next-steps p {
+    font-size: 14px;
+  }
+  @media (max-width: 820px) {
+    .pilot-grid,
+    .next-steps {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

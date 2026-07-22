@@ -1,0 +1,226 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import CTA from "../components/CTA.astro";
+import { links } from "../config";
+
+const repos = [
+  {
+    name: "vworkspace",
+    role: "Product hub",
+    body: "Product design, user guidance, go-to-market material, cross-repository tracking, and the public roadmap.",
+    license: "Documentation and project materials",
+    href: links.vworkspace,
+  },
+  {
+    name: "vworkspace-server",
+    role: "Control plane",
+    body: "The Odoo-based workspace experience: organization, clusters, catalog, operations, storage, audit, and optional AI orchestration.",
+    license: "GNU LGPL v3",
+    href: links.server,
+  },
+  {
+    name: "vworkspace-operator",
+    role: "Cluster operator",
+    body: "The pull-mode Kubernetes agent, custom resources, reconcilers, operation engines, webhooks, and Helm-based installation.",
+    license: "GNU AGPL v3",
+    href: links.operator,
+  },
+];
+---
+
+<BaseLayout
+  title="Open Source"
+  description="Explore the open foundation of vWorkspace: the product hub, LGPL v3 control plane, AGPL v3 Kubernetes operator, public docs, governance, and contribution paths."
+>
+  <PageHero
+    eyebrow="Open source"
+    title="Built in the open, designed to remain yours"
+    text="The core software, architecture, operating contracts, and product direction are inspectable. Commercial value comes from productized hardware, installation, and support—not control over customer data."
+  />
+
+  <section class="section section--tight">
+    <div class="container">
+      <span class="eyebrow">Project structure</span>
+      <h2 class="section-title">Three repositories, one product</h2>
+      <div class="repos">
+        {repos.map((repo) => (
+          <a class="repo" href={repo.href} target="_blank" rel="noopener">
+            <span class="repo__role">{repo.role}</span>
+            <div>
+              <h3><code>{repo.name}</code></h3>
+              <p class="muted">{repo.body}</p>
+            </div>
+            <span class="repo__license">{repo.license}</span>
+            <span class="repo__arrow" aria-hidden="true">↗</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container content-split">
+      <div>
+        <span class="eyebrow">Open foundation</span>
+        <h2 class="section-title">Use the tools you already trust</h2>
+        <p class="muted">
+          vWorkspace composes Kubernetes, Helm, Flux, Velero, S3-compatible
+          storage, Odoo Community, and local or approved cloud AI runtimes. The
+          product adds a guided control plane and narrow operating contracts
+          around those components.
+        </p>
+      </div>
+      <div>
+        <span class="eyebrow">No data lock-in</span>
+        <h2 class="section-title">Your environment remains operable</h2>
+        <p class="muted">
+          Applications run as recognizable Kubernetes resources, backups use
+          established tooling, and storage remains under credentials and
+          destinations you control. Commercial support does not depend on a
+          proprietary data format.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container content-split">
+      <div>
+        <span class="eyebrow">Documentation</span>
+        <h2 class="section-title">Inspect before you deploy</h2>
+        <p class="lead">
+          Read the operator and server documentation, review the API contract,
+          or follow the quickstart on a supported Kubernetes environment.
+        </p>
+      </div>
+      <div class="resource-list">
+        <a href={links.operatorDocs} target="_blank" rel="noopener"><span>Operator documentation</span><small>Install, connect, reconcile, operate</small></a>
+        <a href={links.serverDocs} target="_blank" rel="noopener"><span>Server documentation</span><small>Control-plane modules and workflows</small></a>
+        <a href={links.apiRef} target="_blank" rel="noopener"><span>API reference</span><small>Kubernetes custom resources</small></a>
+        <a href={links.quickstart} target="_blank" rel="noopener"><span>Quickstart</span><small>Deploy the operator</small></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Project policies</span>
+      <div class="policy-links">
+        <a href={links.governance} target="_blank" rel="noopener">Governance ↗</a>
+        <a href={links.contributing} target="_blank" rel="noopener">Contributing ↗</a>
+        <a href={links.security} target="_blank" rel="noopener">Security policy ↗</a>
+      </div>
+      <p class="policy-note muted">
+        Licensing is stated per code repository. Review each repository's
+        license and third-party notices for the terms that apply to your use.
+      </p>
+    </div>
+  </section>
+
+  <CTA
+    title="Run the core or work with us"
+    text="Use the public documentation to explore the software, or join the pilot for a productized appliance deployment."
+    secondaryLabel="Open the quickstart"
+    secondaryHref={links.quickstart}
+  />
+</BaseLayout>
+
+<style>
+  .repos {
+    margin-top: 36px;
+    border-top: 1px solid var(--line);
+  }
+  .repo {
+    display: grid;
+    grid-template-columns: 130px 1fr 150px 24px;
+    gap: 24px;
+    align-items: center;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+    color: inherit;
+  }
+  .repo:hover {
+    text-decoration: none;
+  }
+  .repo:hover h3 {
+    color: var(--brand-600);
+  }
+  .repo__role,
+  .repo__license {
+    color: var(--ink-600);
+    font-size: 13px;
+  }
+  .repo h3 {
+    font-size: 18px;
+    transition: color var(--duration-fast) var(--ease-default);
+  }
+  .repo p {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+  .repo__arrow {
+    color: var(--brand-600);
+  }
+  .resource-list {
+    display: grid;
+    border-top: 1px solid var(--line);
+  }
+  .resource-list a {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-900);
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .resource-list a:hover {
+    color: var(--brand-600);
+    text-decoration: none;
+  }
+  .resource-list small {
+    color: var(--ink-600);
+    font-size: 13px;
+    font-weight: 400;
+    text-align: right;
+  }
+  .policy-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 28px;
+  }
+  .policy-links a {
+    font-weight: 600;
+  }
+  .policy-note {
+    max-width: 62ch;
+    margin-top: 24px;
+    font-size: 14px;
+  }
+  @media (max-width: 760px) {
+    .repo {
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+    .repo__role,
+    .repo__license {
+      grid-column: 1;
+    }
+    .repo > div {
+      grid-column: 1;
+    }
+    .repo__arrow {
+      grid-column: 2;
+      grid-row: 1 / 4;
+    }
+    .resource-list a {
+      flex-direction: column;
+      gap: 4px;
+    }
+    .resource-list small {
+      text-align: left;
+    }
+  }
+</style>

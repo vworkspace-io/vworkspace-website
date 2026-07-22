@@ -17,6 +17,7 @@ const isActive = (href: string) =>
           <a
             href={item.href}
             class:list={["header__link", { "is-active": isActive(item.href) }]}
+            aria-current={isActive(item.href) ? "page" : undefined}
             {...(item.external ? { target: "_blank", rel: "noopener" } : {})}
           >
             {item.label}
@@ -26,16 +27,15 @@ const isActive = (href: string) =>
     </nav>
 
     <div class="header__actions">
-      <a class="header__link header__link--gh" href={links.github} target="_blank" rel="noopener">GitHub</a>
-      <a class="btn btn--primary header__cta" href={links.contact}>Request a pilot</a>
+      <a class="btn btn--primary header__cta" href={links.pilot}>Request a pilot</a>
     </div>
 
-    <button class="header__burger" aria-label="Toggle menu" aria-expanded="false" data-menu-toggle>
+    <button class="header__burger" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-navigation" data-menu-toggle>
       <span></span><span></span><span></span>
     </button>
   </div>
 
-  <div class="header__mobile" data-mobile-menu hidden>
+  <div class="header__mobile" id="mobile-navigation" data-mobile-menu hidden>
     <div class="container">
       {
         nav.map((item) => (
@@ -44,7 +44,7 @@ const isActive = (href: string) =>
           </a>
         ))
       }
-      <a href={links.contact} class="btn btn--primary">Request a pilot</a>
+      <a href={links.pilot} class="btn btn--primary">Request a pilot</a>
     </div>
   </div>
 </header>
@@ -135,5 +135,6 @@ const isActive = (href: string) =>
     if (open) menu?.removeAttribute("hidden");
     else menu?.setAttribute("hidden", "");
     toggle.setAttribute("aria-expanded", String(!!open));
+    toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
   });
 </script>
