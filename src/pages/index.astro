@@ -1,88 +1,154 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CTA from "../components/CTA.astro";
-import { links } from "../config";
+import { links, site } from "../config";
 
-const productPillars = [
+const useCases = [
   {
-    label: "Workspace",
-    title: "Work in one private environment",
-    body: "Bring Nextcloud files, NetBird access, organization tools, and one identity through vWorkspace SSO into a managed experience.",
+    label: "Knowledge",
+    title: "Find answers across company knowledge",
+    body: "Search trusted PDFs and Nextcloud folders, summarize documents, and trace answers back to their sources.",
+    href: "/knowledge/",
+    link: "Explore knowledge search",
   },
   {
-    label: "AI Team",
-    title: "Give operations a specialist team",
-    body: "Start with @AI and get focused help for users, storage, networking, Nextcloud, DevOps, and project planning.",
+    label: "Files",
+    title: "Work with Nextcloud in context",
+    body: "Review service health, users, shares, folders, and storage without treating Nextcloud as an isolated application.",
+    href: "/product/#nextcloud",
+    link: "See Nextcloud workflows",
   },
   {
-    label: "Control",
-    title: "Approve every sensitive change",
-    body: "AI reads first. Changes arrive as a plan you can approve or reject, while operations and high-signal events remain auditable.",
+    label: "Access",
+    title: "Understand private network access",
+    body: "Inspect NetBird peers, groups, policies, routes, DNS, and connectivity. Prepare sensitive changes for approval.",
+    href: "/netbird-ai/",
+    link: "Explore NetBird operations",
+  },
+  {
+    label: "People",
+    title: "Manage users across the workspace",
+    body: "Review access and provisioning, then coordinate approved onboarding and offboarding across vWorkspace SSO, Nextcloud, and NetBird.",
+    href: "/product/#identity",
+    link: "See identity features",
+  },
+  {
+    label: "Projects",
+    title: "Turn project data into useful decisions",
+    body: "Find overdue tasks, workload gaps, milestones, timesheet issues, and deadline risk. Approve task changes when needed.",
+    href: "/ai-experts/#projects",
+    link: "Meet the Projects expert",
   },
   {
     label: "Data",
-    title: "Protect and move what matters",
-    body: "Connect S3-compatible storage, browse and synchronize objects, configure Velero backup targets, and review backup state.",
+    title: "Know whether your data is protected",
+    body: "Review S3 inventory, backup health, recovery points, and storage signals. Authorized admins can approve an immediate backup.",
+    href: "/product/#storage",
+    link: "See storage and backup",
   },
 ];
 
-const prompts = [
-  "Which users have not completed onboarding?",
-  "Check Nextcloud health and explain the risk.",
-  "Show our backup status and prepare a new backup.",
-  "Turn this requirement into an implementation plan.",
+const expertPrompts = [
+  ["Knowledge", "Find our current onboarding policy and cite the source."],
+  ["Nextcloud", "Summarize the project folder and show recent shares."],
+  ["NetBird", "Why can this laptop not reach Nextcloud?"],
+  ["Users", "Who has admin access, and who is not fully provisioned?"],
+  ["Projects", "Which deadlines are at risk this month?"],
+  ["Storage", "Check our latest backup and available restore points."],
 ];
 
-const steps = [
-  ["Connect your environment", "Use a supported appliance or register your Kubernetes cluster through the outbound pull-mode operator."],
-  ["Deploy and manage services", "Launch catalog applications and manage identity, storage, backups, and operations from the control plane."],
-  ["Ask AI and review the plan", "Specialists use live workspace context; authorized people approve sensitive actions before execution."],
+const deployments = [
+  {
+    title: "Cloud pilot",
+    body: "Start in a dedicated environment without buying hardware. Use an approved cloud AI API and validate the product with your own workflows.",
+    href: "/cloud-pilot/",
+    link: "Start without hardware",
+  },
+  {
+    title: "On-prem appliance",
+    body: "Run vWorkspace at your site with supported hardware, private infrastructure, and local AI where a suitable GPU is available.",
+    href: "/appliance/",
+    link: "Explore the appliance",
+  },
+  {
+    title: "Your infrastructure",
+    body: "Deploy the open core on a supported Kubernetes environment and connect your preferred storage and AI provider.",
+    href: "/open-source/",
+    link: "Review the open core",
+  },
 ];
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "vWorkspace",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web, Linux, Kubernetes",
+  url: site.url,
+  description: site.description,
+  featureList: [
+    "Private company knowledge search",
+    "Nextcloud file and operations workflows",
+    "NetBird access and connectivity management",
+    "AI experts with human-approved actions",
+    "vWorkspace SSO user lifecycle",
+    "S3 storage and Velero backup operations",
+    "Local AI and OpenAI-compatible API support",
+  ],
+};
 ---
 
-<BaseLayout>
+<BaseLayout
+  title="Private AI Workspace for Knowledge and Operations"
+  description="Your knowledge, your AI experts, your workspace. Search trusted sources, run Nextcloud and NetBird workflows, and keep sensitive changes human-approved."
+  schema={productSchema}
+>
   <section class="hero">
     <div class="container hero__grid">
       <div class="hero__copy">
-        <span class="eyebrow">Private workspace appliance</span>
-        <h1>Your private workspace. Your AI team. Your infrastructure.</h1>
+        <span class="eyebrow">Private AI workspace</span>
+        <h1>Your knowledge. Your AI experts. Your workspace.</h1>
         <p class="lead">
-          Run files, secure access, business tools, backups, and AI-assisted
-          operations on infrastructure your organization controls. Deploy on
-          your own cluster or get a ready-to-run appliance installed and
-          supported at your site.
+          Bring company knowledge and daily operations into one private
+          workspace. Search trusted documents, run Nextcloud and NetBird
+          workflows, and keep storage and backups visible.
         </p>
         <div class="btn-row hero__actions">
-          <a class="btn btn--primary" href={links.pilot}>Request a pilot</a>
-          <a class="btn btn--secondary" href="/product/">Explore the product</a>
+          <a class="btn btn--primary" href="/product/">Explore what vWorkspace can do</a>
+          <a class="btn btn--secondary" href={links.pilot}>Start a pilot</a>
         </div>
-        <ul class="trust" aria-label="Product principles">
-          <li>Self-hosted</li>
-          <li>Local AI by default</li>
-          <li>Human-approved changes</li>
-          <li>Open-source core</li>
-        </ul>
+        <p class="hero__note">
+          AI experts work from live workspace context to help your team
+          investigate, plan, and act. Sensitive changes require approval.
+        </p>
       </div>
-      <div class="workspace-preview" aria-label="vWorkspace product overview">
-        <div class="preview__top">
-          <span>Workspace Home</span>
-          <span class="preview__status">Connected</span>
+
+      <div class="search-preview" aria-label="Example company knowledge search">
+        <div class="search-preview__bar">
+          <span class="search-preview__brand">Knowledge</span>
+          <span class="search-preview__scope">Company sources</span>
         </div>
-        <div class="preview__body">
-          <div class="preview__metric">
-            <span>Services</span>
-            <strong>Healthy</strong>
-            <small>Nextcloud · NetBird · AI</small>
+        <div class="search-preview__query">
+          <span>@AI</span>
+          <p>What is our process for onboarding a remote employee?</p>
+        </div>
+        <div class="search-preview__answer">
+          <span class="answer-label">Answer</span>
+          <p>
+            Create the workspace account first, assign the approved access
+            group, then provision Nextcloud and NetBird. The manager confirms
+            access after the employee signs in.
+          </p>
+          <div class="sources">
+            <span>Employee onboarding policy.pdf</span>
+            <span>IT access checklist.pdf</span>
           </div>
-          <div class="preview__apps">
-            <span>Applications</span>
-            <div><strong>Nextcloud</strong><small>Files and collaboration</small></div>
-            <div><strong>AI Team</strong><small>Ask @AI in Discuss</small></div>
-          </div>
-          <div class="preview__prompt">
-            <span>@AI</span>
-            <p>Review workspace health and tell me what needs attention.</p>
-          </div>
+        </div>
+        <div class="search-preview__services">
+          <span>Nextcloud</span>
+          <span>NetBird</span>
+          <span>vWorkspace SSO</span>
+          <span>Projects</span>
         </div>
       </div>
     </div>
@@ -90,15 +156,20 @@ const steps = [
 
   <section class="section section--alt">
     <div class="container">
-      <span class="eyebrow">One private workspace</span>
-      <h2 class="section-title">Everything your organization needs to run its digital workspace</h2>
-      <div class="content-grid">
-        {productPillars.map((item) => (
-          <article class="pillar">
-            <span>{item.label}</span>
+      <span class="eyebrow">What your team can do</span>
+      <h2 class="section-title">Useful answers and safer operations</h2>
+      <p class="lead section-intro">
+        vWorkspace connects the information your team relies on with the
+        systems administrators operate every day.
+      </p>
+      <div class="use-cases">
+        {useCases.map((item) => (
+          <article class="use-case">
+            <span class="use-case__label">{item.label}</span>
             <div>
               <h3>{item.title}</h3>
               <p class="muted">{item.body}</p>
+              <a class="text-link" href={item.href}>{item.link}</a>
             </div>
           </article>
         ))}
@@ -106,44 +177,44 @@ const steps = [
     </div>
   </section>
 
-  <section class="section">
-    <div class="container content-split ai-feature">
+  <section class="section knowledge">
+    <div class="container content-split">
       <div>
-        <span class="eyebrow">AI Team</span>
-        <h2 class="section-title">Ask once. The right specialist takes it from there.</h2>
+        <span class="eyebrow">Company knowledge</span>
+        <h2 class="section-title">Give people a faster way to find what the company already knows</h2>
         <p class="muted">
-          Ask <code>@AI</code> in Discuss to investigate an issue, review
-          workspace health, plan work, or prepare an operational change.
-          vWorkspace routes the request and returns the result to one
-          conversation.
+          Build a searchable knowledge base from approved PDFs and Nextcloud
+          folders. Teams can ask questions in natural language, summarize a
+          folder, compare documents, and inspect the sources behind an answer.
         </p>
-        <p class="safety">
-          Read-only work runs through defined tools. Changes that affect users,
-          applications, networking, or storage require explicit approval.
-        </p>
-        <a class="text-link" href="/ai-team/">Meet the AI Team →</a>
+        <a class="text-link" href="/knowledge/">See how private knowledge search works</a>
       </div>
-      <div class="prompt-stack" aria-label="Example AI Team requests">
-        {prompts.map((prompt, index) => (
-          <div class="prompt">
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <p>{prompt}</p>
-          </div>
-        ))}
+      <div class="knowledge__examples">
+        <p>Find the latest remote work policy.</p>
+        <p>Summarize the documents added to the customer folder this week.</p>
+        <p>Compare the current backup procedure with the previous version.</p>
+        <p>Which document defines access for external contractors?</p>
       </div>
     </div>
   </section>
 
-  <section class="section section--alt">
-    <div class="container">
-      <span class="eyebrow">How it works</span>
-      <h2 class="section-title">Private infrastructure, calmly operated</h2>
-      <div class="steps">
-        {steps.map(([title, body], index) => (
+  <section class="section section--dark">
+    <div class="container experts">
+      <div class="experts__intro">
+        <span class="eyebrow eyebrow--dark">AI Experts</span>
+        <h2>Ask once. The right expert picks up from there.</h2>
+        <p>
+          Mention <code>@AI</code> in Discuss. vWorkspace identifies the domain,
+          uses the available tools, and returns the work to the same
+          conversation.
+        </p>
+        <a class="btn btn--ghost-on-dark" href="/ai-experts/">Meet the AI experts</a>
+      </div>
+      <div class="expert-prompts">
+        {expertPrompts.map(([expert, prompt]) => (
           <article>
-            <span>{index + 1}</span>
-            <h3>{title}</h3>
-            <p class="muted">{body}</p>
+            <span>{expert}</span>
+            <p>{prompt}</p>
           </article>
         ))}
       </div>
@@ -153,31 +224,44 @@ const steps = [
   <section class="section">
     <div class="container content-split">
       <div>
-        <span class="eyebrow">Deployment choice</span>
-        <h2 class="section-title">Run it your way</h2>
-        <p class="lead">
-          The same product can be delivered as a supported appliance or run on
-          infrastructure your team already controls.
+        <span class="eyebrow">Human control</span>
+        <h2 class="section-title">AI can investigate. People decide what changes.</h2>
+        <p class="muted">
+          Read requests can run through approved tools. When a request would
+          change users, projects, Nextcloud, NetBird, or backups, vWorkspace
+          shows the proposed work and waits for an authorized person.
         </p>
       </div>
-      <div class="options">
-        <article>
-          <span>01</span>
-          <div>
-            <h3>Ready-to-run appliance</h3>
-            <p class="muted">Installed and supported hardware for organizations that want the outcome without building the platform.</p>
-            <a class="text-link" href="/appliance/">Explore the appliance →</a>
-          </div>
-        </article>
-        <article>
-          <span>02</span>
-          <div>
-            <h3>Your own infrastructure</h3>
-            <p class="muted">Deploy the open core on a conformant Kubernetes cluster and connect your own storage and AI provider.</p>
-            <a class="text-link" href="/open-source/">Explore the open core →</a>
-          </div>
-        </article>
+      <ol class="approval-flow" aria-label="AI approval flow">
+        <li><span>1</span><strong>Ask a question or request a change</strong></li>
+        <li><span>2</span><strong>Review the findings and proposed work</strong></li>
+        <li><span>3</span><strong>Approve or reject sensitive actions</strong></li>
+        <li><span>4</span><strong>Review the result in the audit trail</strong></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Start where you are</span>
+      <h2 class="section-title">Try vWorkspace without changing your infrastructure first</h2>
+      <p class="lead section-intro">
+        Deployment is a choice, not the product story. Start with the option
+        that makes evaluation easiest, then move when your requirements change.
+      </p>
+      <div class="deployments">
+        {deployments.map((item) => (
+          <article>
+            <h3>{item.title}</h3>
+            <p class="muted">{item.body}</p>
+            <a class="text-link" href={item.href}>{item.link}</a>
+          </article>
+        ))}
       </div>
+      <p class="runtime-note">
+        AI can run through local models on a suitable GPU or through a
+        configured OpenAI-compatible API. A local GPU is not required.
+      </p>
     </div>
   </section>
 
@@ -186,243 +270,271 @@ const steps = [
 
 <style>
   .hero {
-    padding-block: clamp(72px, 9vw, 120px);
+    padding-block: clamp(48px, calc(5vw + 18px), 88px);
     overflow: hidden;
   }
   .hero__grid {
     display: grid;
-    grid-template-columns: 1.08fr 0.92fr;
-    gap: clamp(48px, 7vw, 88px);
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(32px, calc(4vw + 12px), 64px);
     align-items: center;
   }
   .hero h1 {
-    max-width: 14ch;
-    font-size: clamp(40px, 5.5vw, 64px);
+    max-width: 16ch;
+    font-size: clamp(34px, calc(2.8vw + 18px), 50px);
     font-weight: 700;
-    letter-spacing: -0.045em;
+    letter-spacing: -0.035em;
   }
   .hero .lead {
-    max-width: 61ch;
-    margin-top: 24px;
+    max-width: 58ch;
+    margin-top: 18px;
   }
   .hero__actions {
-    margin-top: 30px;
+    margin-top: 22px;
   }
-  .trust {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 20px;
-    margin: 24px 0 0;
-    padding: 0;
-    list-style: none;
+  .hero__note {
+    max-width: 62ch;
+    margin-top: 22px;
     color: var(--ink-600);
-    font-size: 13px;
+    font-size: 14px;
   }
-  .trust li::before {
-    content: "·";
-    margin-right: 8px;
-    color: var(--brand-600);
-  }
-  .workspace-preview {
+  .search-preview {
     border: 1px solid var(--line-strong);
     border-radius: var(--radius-lg);
-    background: var(--surface);
+    background: var(--surface-2);
     box-shadow: var(--shadow-lg);
     overflow: hidden;
-    transform: rotate(1deg);
   }
-  .preview__top {
+  .search-preview__bar {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     padding: 14px 18px;
     border-bottom: 1px solid var(--line);
-    color: var(--ink-800);
-    font-size: 13px;
-    font-weight: 600;
+    background: var(--surface);
+    font-size: 12px;
   }
-  .preview__status {
-    color: var(--success);
+  .search-preview__brand {
+    color: var(--ink-900);
+    font-weight: 700;
   }
-  .preview__body {
-    padding: 20px;
-    display: grid;
-    gap: 14px;
-    background: var(--surface-2);
+  .search-preview__scope {
+    color: var(--ink-600);
   }
-  .preview__metric,
-  .preview__apps,
-  .preview__prompt {
+  .search-preview__query,
+  .search-preview__answer {
+    margin: 18px;
     border: 1px solid var(--line);
     border-radius: var(--radius-sm);
     background: var(--surface);
     padding: 18px;
   }
-  .preview__metric {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 4px 12px;
-  }
-  .preview__metric > span,
-  .preview__apps > span {
-    color: var(--ink-500);
-    font-size: 12px;
-  }
-  .preview__metric strong {
-    color: var(--success);
-    font-size: 14px;
-  }
-  .preview__metric small {
-    grid-column: 1 / -1;
-    color: var(--ink-500);
-  }
-  .preview__apps {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  .preview__apps > span {
-    grid-column: 1 / -1;
-  }
-  .preview__apps div {
-    display: flex;
-    flex-direction: column;
-    padding: 12px;
-    background: var(--surface-2);
-    border-radius: var(--radius-sm);
-  }
-  .preview__apps strong {
-    color: var(--ink-900);
-    font-size: 13px;
-  }
-  .preview__apps small {
-    color: var(--ink-500);
-    font-size: 10px;
-  }
-  .preview__prompt {
+  .search-preview__query {
     display: flex;
     gap: 12px;
   }
-  .preview__prompt span {
+  .search-preview__query span {
     color: var(--brand-600);
     font-family: var(--font-mono);
     font-size: 12px;
     font-weight: 700;
   }
-  .preview__prompt p {
+  .search-preview__query p {
+    color: var(--ink-800);
+    font-size: 13px;
+  }
+  .answer-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--success);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .search-preview__answer > p {
     color: var(--ink-700);
+    font-size: 13px;
+  }
+  .sources {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .sources span {
+    padding: 5px 8px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--ink-600);
     font-size: 12px;
   }
-  .pillar {
+  .search-preview__services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 18px 18px;
+  }
+  .search-preview__services span {
+    color: var(--ink-600);
+    font-size: 12px;
+  }
+  .use-cases {
     display: grid;
-    grid-template-columns: 90px 1fr;
-    gap: 18px;
-    padding: 28px 0;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 42px;
     border-top: 1px solid var(--line);
   }
-  .pillar > span {
+  .use-case {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 20px;
+    padding: 22px 20px 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .use-case:nth-child(odd) {
+    border-right: 1px solid var(--line);
+  }
+  .use-case:nth-child(even) {
+    padding-left: 20px;
+  }
+  .use-case__label {
     color: var(--brand-600);
     font-family: var(--font-mono);
     font-size: 12px;
     font-weight: 600;
   }
-  .pillar h3 {
-    font-size: 20px;
+  .use-case h3 {
+    font-size: 18px;
     margin-bottom: 8px;
   }
-  .pillar p {
+  .use-case p {
     font-size: 15px;
   }
-  .safety {
-    margin-top: 24px;
-    padding-left: 18px;
-    border-left: 2px solid var(--brand-600);
-    color: var(--ink-800);
-    font-size: 15px;
-  }
-  .prompt-stack {
+  .knowledge__examples {
     display: grid;
     gap: 10px;
   }
-  .prompt {
-    display: flex;
-    gap: 16px;
-    padding: 18px;
+  .knowledge__examples p {
+    padding: 16px 18px;
     border: 1px solid var(--line);
     border-radius: var(--radius-sm);
-  }
-  .prompt span {
-    color: var(--brand-600);
-    font-family: var(--font-mono);
-    font-size: 11px;
-  }
-  .prompt p {
     color: var(--ink-800);
-    font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 14px;
   }
-  .steps {
+  .section--dark {
+    background: var(--dark-bg);
+    color: var(--dark-muted);
+  }
+  .experts {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    margin-top: 40px;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(32px, calc(4vw + 12px), 64px);
+    align-items: start;
   }
-  .steps article > span {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--blue-50);
-    color: var(--brand-600);
-    font-size: 13px;
-    font-weight: 700;
+  .experts h2 {
+    color: var(--white);
+    font-size: var(--heading-section);
   }
-  .steps h3 {
-    margin: 20px 0 10px;
-    font-size: 19px;
+  .experts__intro > p {
+    margin: 20px 0 28px;
+    font-size: 16px;
   }
-  .steps p {
-    font-size: 15px;
+  .experts__intro code {
+    background: var(--dark-surface);
+    color: var(--white);
   }
-  .options {
+  .eyebrow--dark {
+    color: var(--blue-400);
+  }
+  .expert-prompts {
+    border-top: 1px solid var(--dark-line);
+  }
+  .expert-prompts article {
     display: grid;
-    gap: 28px;
-  }
-  .options article {
-    display: flex;
+    grid-template-columns: 100px 1fr;
     gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--dark-line);
   }
-  .options article + article {
-    padding-top: 28px;
+  .expert-prompts span {
+    color: var(--blue-400);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .expert-prompts p {
+    color: var(--white);
+    font-size: 14px;
+  }
+  .approval-flow {
+    margin: 0;
+    padding: 0;
+    list-style: none;
     border-top: 1px solid var(--line);
   }
-  .options article > span {
+  .approval-flow li {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 12px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .approval-flow span {
     color: var(--brand-600);
     font-family: var(--font-mono);
     font-size: 12px;
   }
-  .options h3 {
-    font-size: 20px;
-    margin-bottom: 8px;
-  }
-  .options p {
+  .approval-flow strong {
+    color: var(--ink-800);
     font-size: 15px;
+  }
+  .deployments {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 40px;
+  }
+  .deployments article {
+    padding-top: 20px;
+    border-top: 2px solid var(--ink-900);
+  }
+  .deployments h3 {
+    margin-bottom: 10px;
+    font-size: 19px;
+  }
+  .deployments p {
+    font-size: 15px;
+  }
+  .runtime-note {
+    margin-top: 36px;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink-700);
+    font-size: 14px;
   }
   @media (max-width: 900px) {
     .hero__grid,
-    .steps {
+    .experts,
+    .deployments {
       grid-template-columns: 1fr;
-    }
-    .workspace-preview {
-      transform: none;
     }
   }
-  @media (max-width: 560px) {
-    .pillar {
+  @media (max-width: 1024px) and (min-width: 901px) {
+    .hero__grid {
+      grid-template-columns: 1fr 0.9fr;
+    }
+    .deployments {
+      gap: 20px;
+    }
+  }
+  @media (max-width: 720px) {
+    .use-cases {
       grid-template-columns: 1fr;
-      gap: 8px;
+    }
+    .use-case,
+    .use-case:nth-child(even) {
+      grid-template-columns: 1fr;
+      padding: 24px 0;
+      border-right: 0;
     }
   }
 </style>

@@ -7,10 +7,31 @@ import { site } from "../config";
 interface Props {
   title?: string;
   description?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
 }
-const { title, description = site.description } = Astro.props;
-const fullTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.tagline}`;
+const { title, description = site.description, schema } = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`;
 const canonical = new URL(Astro.url.pathname, site.url).href;
+const baseSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${site.url}/#organization`,
+    name: site.name,
+    url: site.url,
+    sameAs: ["https://github.com/vworkspace-io"],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${site.url}/#website`,
+    name: site.name,
+    url: site.url,
+    publisher: { "@id": `${site.url}/#organization` },
+  },
+];
+const customSchema = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+const structuredData = [...baseSchema, ...customSchema];
 ---
 
 <!doctype html>
@@ -30,7 +51,11 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     <meta name="generator" content={Astro.generator} />
   </head>
   <body>

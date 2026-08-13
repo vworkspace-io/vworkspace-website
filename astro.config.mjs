@@ -7,8 +7,9 @@ export default defineConfig({
   site: "https://vworkspace.io",
   integrations: [sitemap()],
   redirects: {
-    "/platform": "/product",
-    "/ai": "/ai-team",
+    "/platform": "/product/",
+    "/ai": "/ai-experts/",
+    "/ai-team": "/ai-experts/",
   },
   build: {
     inlineStylesheets: "auto",

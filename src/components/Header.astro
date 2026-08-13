@@ -3,8 +3,10 @@ import Logo from "./Logo.astro";
 import { nav, links } from "../config";
 
 const path = Astro.url.pathname;
-const isActive = (href: string) =>
-  href !== "/" && path.startsWith(href.replace(/\/$/, ""));
+const isActive = (href: string) => {
+  const target = href.replace(/\/$/, "");
+  return target !== "" && (path === target || path.startsWith(`${target}/`));
+};
 ---
 
 <header class="header">
@@ -27,7 +29,7 @@ const isActive = (href: string) =>
     </nav>
 
     <div class="header__actions">
-      <a class="btn btn--primary header__cta" href={links.pilot}>Request a pilot</a>
+      <a class="btn btn--primary header__cta" href={links.pilot}>Start a pilot</a>
     </div>
 
     <button class="header__burger" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-navigation" data-menu-toggle>
@@ -39,12 +41,17 @@ const isActive = (href: string) =>
     <div class="container">
       {
         nav.map((item) => (
-          <a href={item.href} {...(item.external ? { target: "_blank", rel: "noopener" } : {})}>
+          <a
+            href={item.href}
+            class:list={{ "is-active": isActive(item.href) }}
+            aria-current={isActive(item.href) ? "page" : undefined}
+            {...(item.external ? { target: "_blank", rel: "noopener" } : {})}
+          >
             {item.label}
           </a>
         ))
       }
-      <a href={links.pilot} class="btn btn--primary">Request a pilot</a>
+      <a href={links.pilot} class="btn btn--primary">Start a pilot</a>
     </div>
   </div>
 </header>
@@ -61,17 +68,17 @@ const isActive = (href: string) =>
   .header__inner {
     display: flex;
     align-items: center;
-    gap: 24px;
-    height: 66px;
+    gap: 16px;
+    height: 60px;
   }
   .header__nav {
     display: flex;
-    gap: 28px;
+    gap: 20px;
     margin-inline: auto;
   }
   .header__link {
     color: var(--ink-500);
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
     transition: color 0.15s ease;
   }
@@ -92,7 +99,11 @@ const isActive = (href: string) =>
     background: none;
     border: 0;
     cursor: pointer;
-    padding: 6px;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
   }
   .header__burger span {
     width: 22px;
@@ -114,6 +125,10 @@ const isActive = (href: string) =>
     color: var(--ink-700);
     font-weight: 500;
   }
+  .header__mobile a.is-active {
+    color: var(--ink-900);
+    font-weight: 700;
+  }
 
   @media (max-width: 860px) {
     .header__nav,
@@ -130,11 +145,28 @@ const isActive = (href: string) =>
 <script>
   const toggle = document.querySelector("[data-menu-toggle]");
   const menu = document.querySelector("[data-mobile-menu]");
+  const closeMenu = () => {
+    menu?.setAttribute("hidden", "");
+    toggle?.setAttribute("aria-expanded", "false");
+    toggle?.setAttribute("aria-label", "Open navigation");
+  };
   toggle?.addEventListener("click", () => {
     const open = menu?.hasAttribute("hidden");
     if (open) menu?.removeAttribute("hidden");
-    else menu?.setAttribute("hidden", "");
+    else closeMenu();
     toggle.setAttribute("aria-expanded", String(!!open));
     toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !menu?.hasAttribute("hidden")) {
+      closeMenu();
+      (toggle as HTMLElement | null)?.focus();
+    }
+  });
+  menu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 860) closeMenu();
   });
 </script>

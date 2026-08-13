@@ -6,70 +6,73 @@ import CTA from "../components/CTA.astro";
 const solutions = [
   {
     number: "01",
-    title: "Replace scattered self-hosted tools",
-    problem: "Files, remote access, identities, and operations often live in separate systems with separate operating models.",
-    workflow: "vWorkspace connects a role-aware launchpad, vWorkspace SSO, catalog applications, shared operations, and one AI Team.",
-    outcome: "A more coherent workspace for users and a smaller operational surface for administrators.",
-    href: "/product/",
+    title: "Make company knowledge easier to use",
+    body: "Search approved PDFs and Nextcloud folders in natural language. Summarize content, compare documents, and inspect the sources behind each answer.",
+    detail: "Useful for policies, project folders, runbooks, support material, and internal reference documents.",
+    href: "/knowledge/",
   },
   {
     number: "02",
-    title: "Keep sensitive work private",
-    problem: "Organizations need useful AI and collaboration without making a public cloud the default home for their data.",
-    workflow: "Run on infrastructure you control, use local AI by default, choose approved providers deliberately, and gate sensitive actions.",
-    outcome: "Clearer control over data location, model choice, credentials, and operational change.",
-    href: "/ai-team/",
+    title: "Help small IT teams investigate faster",
+    body: "Ask AI experts to inspect users, projects, applications, infrastructure, networking, storage, and backups before an administrator steps in.",
+    detail: "Read work can run directly. Sensitive changes wait for approval.",
+    href: "/ai-experts/",
   },
   {
     number: "03",
-    title: "Give small IT teams operational leverage",
-    problem: "Routine investigation, user lifecycle work, backup checks, and planning consume scarce technical time.",
-    workflow: "Ask @AI to route work to specialists for identity, Nextcloud, networking, storage, DevOps, and planning.",
-    outcome: "Faster investigation and preparation without handing unrestricted control to an autonomous agent.",
-    href: "/ai-team/",
+    title: "Run Nextcloud with more context",
+    body: "Connect files and collaboration to identity, private access, knowledge search, storage, backup, and operational health.",
+    detail: "Review users, shares, quotas, folders, and service state from the same workspace.",
+    href: "/product/#nextcloud",
   },
   {
     number: "04",
-    title: "Standardize customer deployments",
-    problem: "Every bespoke private-cloud deployment creates a different support and upgrade burden.",
-    workflow: "Use the same control plane and pull-mode operator contract across an appliance or supported Kubernetes environment.",
-    outcome: "A repeatable installation and operations model for internal teams and delivery partners.",
-    href: "/appliance/",
+    title: "Understand private access with NetBird",
+    body: "Review peers, groups, policies, routes, DNS, and connectivity with user and application context available.",
+    detail: "Prepare setup keys, group membership, and policy changes for administrator approval.",
+    href: "/netbird-ai/",
   },
   {
     number: "05",
-    title: "Modernize Nextcloud operations",
-    problem: "A useful file platform still needs identity, secure access, application health context, and recoverable operations around it.",
-    workflow: "Deploy Nextcloud from the catalog, connect vWorkspace SSO and NetBird, use file-aware AI workflows, and configure backup storage.",
-    outcome: "Nextcloud becomes part of an operated workspace rather than an isolated application.",
-    href: "/product/",
+    title: "Coordinate employee access",
+    body: "Use vWorkspace SSO as the workspace identity source and review downstream provisioning for Nextcloud and NetBird.",
+    detail: "Onboarding, group changes, access levels, and offboarding remain approval-gated.",
+    href: "/product/#identity",
+  },
+  {
+    number: "06",
+    title: "Check storage and recovery before they become urgent",
+    body: "Browse S3-compatible storage, review backup health, inspect recovery points, and understand backup-location status.",
+    detail: "Authorized administrators can approve an immediate backup from the Storage Expert.",
+    href: "/product/#storage",
   },
 ];
 
 const audiences = [
-  ["Organizations", "15–500 person teams that need private collaboration and practical AI without assembling a platform team."],
+  ["Organizations", "Teams of 15 to 500 people that need private collaboration and practical AI without assembling a platform team."],
   ["Sensitive sectors", "Clinics, legal firms, manufacturers, professional services, and public-sector teams with data-control requirements."],
   ["IT partners", "Teams that deliver and support repeatable private workspace installations for customers."],
 ];
 ---
 
 <BaseLayout
-  title="Solutions"
-  description="Use vWorkspace to consolidate self-hosted tools, keep sensitive work private, help small IT teams, standardize deployments, and modernize Nextcloud operations."
+  title="Private AI Workspace Use Cases"
+  description="Explore vWorkspace use cases for company knowledge search, Nextcloud, NetBird, employee access, projects, S3 storage, backups, and small IT teams."
 >
   <PageHero
     eyebrow="Solutions"
-    title="Private workspace outcomes without a private cloud team"
-    text="vWorkspace helps organizations operate collaboration, secure access, identity, storage, backups, and AI as one product—not a pile of unrelated infrastructure."
+    title="Practical help for the work behind your workspace"
+    text="Find company knowledge, operate Nextcloud, understand NetBird access, coordinate users, and keep projects, storage, and backups visible."
   />
 
   <section class="section section--tight">
     <div class="container">
       <span class="eyebrow">Who it serves</span>
+      <h2 class="section-title">Teams that need useful AI without another platform to assemble</h2>
       <div class="audiences">
         {audiences.map(([title, body]) => (
           <article>
-            <h2>{title}</h2>
+            <h3>{title}</h3>
             <p class="muted">{body}</p>
           </article>
         ))}
@@ -80,26 +83,17 @@ const audiences = [
   <section class="section section--alt">
     <div class="container">
       <span class="eyebrow">What changes</span>
-      <h2 class="section-title">Five practical reasons to use vWorkspace</h2>
+      <h2 class="section-title">Where teams use vWorkspace today</h2>
       <div class="solution-list">
         {solutions.map((item) => (
           <article class="solution">
             <span class="solution__number">{item.number}</span>
             <div class="solution__main">
               <h3>{item.title}</h3>
-              <p class="muted">{item.problem}</p>
-              <a class="text-link" href={item.href}>Explore this workflow →</a>
+              <p class="muted">{item.body}</p>
+              <a class="text-link" href={item.href}>Explore this use case</a>
             </div>
-            <dl>
-              <div>
-                <dt>vWorkspace workflow</dt>
-                <dd>{item.workflow}</dd>
-              </div>
-              <div>
-                <dt>Operational outcome</dt>
-                <dd>{item.outcome}</dd>
-              </div>
-            </dl>
+            <p class="solution__detail">{item.detail}</p>
           </article>
         ))}
       </div>
@@ -107,10 +101,10 @@ const audiences = [
   </section>
 
   <CTA
-    title="Find the fit for your organization"
-    text="Join the pilot for a guided fit assessment covering deployment, data control, applications, AI, and operational ownership."
-    secondaryLabel="Explore the appliance"
-    secondaryHref="/appliance/"
+    title="Choose one useful workflow for a pilot"
+    text="Start with one workflow your team already needs to improve, then measure the result in a focused pilot."
+    secondaryLabel="Start without hardware"
+    secondaryHref="/cloud-pilot/"
   />
 </BaseLayout>
 
@@ -125,7 +119,7 @@ const audiences = [
     padding-top: 20px;
     border-top: 2px solid var(--ink-900);
   }
-  .audiences h2 {
+  .audiences h3 {
     font-size: 19px;
     margin-bottom: 10px;
   }
@@ -138,9 +132,9 @@ const audiences = [
   }
   .solution {
     display: grid;
-    grid-template-columns: 56px 0.8fr 1.2fr;
+    grid-template-columns: 56px 1fr 0.8fr;
     gap: 28px;
-    padding: 36px 0;
+    padding: 28px 0;
     border-bottom: 1px solid var(--line);
   }
   .solution__number {
@@ -150,25 +144,13 @@ const audiences = [
     font-weight: 600;
   }
   .solution h3 {
-    font-size: 21px;
+    font-size: var(--heading-card);
     margin-bottom: 10px;
   }
   .solution__main p {
     font-size: 15px;
   }
-  .solution dl {
-    margin: 0;
-    display: grid;
-    gap: 20px;
-  }
-  .solution dt {
-    margin-bottom: 4px;
-    color: var(--ink-900);
-    font-size: 13px;
-    font-weight: 700;
-  }
-  .solution dd {
-    margin: 0;
+  .solution__detail {
     color: var(--ink-600);
     font-size: 14px;
   }
@@ -180,7 +162,7 @@ const audiences = [
     .solution {
       gap: 12px;
     }
-    .solution dl {
+    .solution__detail {
       margin-top: 16px;
     }
   }

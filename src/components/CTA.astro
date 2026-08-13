@@ -9,9 +9,9 @@ interface Props {
   secondaryHref?: string;
 }
 const {
-  title = "Bring your workspace back under your control",
-  text = "Join the pilot for a guided deployment, product walkthrough, and fit assessment.",
-  primaryLabel = "Request a pilot",
+  title = "See what vWorkspace can do with your real workflows",
+  text = "Pick one real workflow and test it in a dedicated cloud or on-prem pilot. No hardware is required for a cloud pilot.",
+  primaryLabel = "Start a pilot",
   primaryHref = links.pilot,
   secondaryLabel = "Explore the product",
   secondaryHref = "/product/",
@@ -46,18 +46,18 @@ const secondaryExternal = secondaryHref.startsWith("http");
   }
   .cta__inner {
     text-align: center;
-    padding-block: clamp(64px, 9vw, 104px);
+    padding-block: clamp(48px, calc(4vw + 22px), 80px);
   }
   .cta h2 {
     color: #fff;
-    font-size: clamp(28px, 4vw, 40px);
-    max-width: 22ch;
+    font-size: clamp(24px, calc(2vw + 14px), 34px);
+    max-width: 26ch;
     margin-inline: auto;
   }
   .cta p {
     color: var(--dark-muted);
-    font-size: 19px;
-    margin: 18px auto 30px;
+    font-size: var(--text-lg);
+    margin: 14px auto 24px;
     max-width: 58ch;
   }
   .cta__row {

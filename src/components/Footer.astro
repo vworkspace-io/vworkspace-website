@@ -9,13 +9,13 @@ const year = new Date().getFullYear();
     <div class="footer__brand">
       <Logo />
       <p class="muted">{site.tagline}</p>
-      <span class="footer__badge">Pilot program open</span>
+      <span class="footer__badge">Cloud and on-prem pilots open</span>
     </div>
 
     {
       footerColumns.map((col) => (
         <nav class="footer__col" aria-label={col.title}>
-          <h4>{col.title}</h4>
+          <h2>{col.title}</h2>
           {col.items.map((item) => (
             <a
               href={item.href}
@@ -69,7 +69,7 @@ const year = new Date().getFullYear();
     flex-direction: column;
     gap: 10px;
   }
-  .footer__col h4 {
+  .footer__col h2 {
     font-size: 13px;
     font-weight: 600;
     color: var(--ink-900);
