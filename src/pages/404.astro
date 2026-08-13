@@ -2,23 +2,24 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Page not found" description="The page you were looking for does not exist.">
+<BaseLayout title="Page not found" description="The requested page could not be found. Explore vWorkspace, try knowledge search, or return home.">
   <section class="nf">
     <div class="container">
       <span class="code">404</span>
       <h1>This page doesn't exist</h1>
-      <p class="lead">The page you were looking for isn't here, or it has moved. Head back home, or explore the current vWorkspace product.</p>
+      <p class="lead">This page isn't here or has moved. Try the homepage, product overview, or knowledge search.</p>
       <div class="btn-row nf__row">
         <a class="btn btn--primary" href="/">Back home</a>
         <a class="btn btn--secondary" href="/product/">Explore the product</a>
       </div>
+      <a class="knowledge-link" href="/knowledge/">Explore knowledge search</a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
   .nf {
-    padding-block: clamp(80px, 14vw, 180px);
+    padding-block: var(--space-section);
     text-align: center;
   }
   .code {
@@ -28,7 +29,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     font-size: 18px;
   }
   .nf h1 {
-    font-size: clamp(32px, 5vw, 48px);
+    font-size: var(--heading-page);
     margin: 14px 0 16px;
   }
   .nf .lead {
@@ -38,5 +39,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   .nf__row {
     justify-content: center;
     margin-top: 28px;
+  }
+  .knowledge-link {
+    display: inline-block;
+    margin-top: 18px;
+    font-size: 14px;
+    font-weight: 600;
   }
 </style>

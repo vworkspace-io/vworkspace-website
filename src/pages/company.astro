@@ -11,11 +11,11 @@ const principles = [
   },
   {
     title: "Open platform, commercial delivery",
-    body: "The platform is open and auditable; the business is hardware bundles, installation, and support contracts — not a proprietary paywall around your data.",
+    body: "The platform is open and auditable. Commercial work covers dedicated pilots, hardware, installation, and support while customers keep control of their data.",
   },
   {
     title: "Security as a design constraint",
-    body: "Clusters reach out in pull mode; the control plane never holds a kubeconfig. Least privilege isn't an add-on — it's the architecture.",
+    body: "Clusters reach out in pull mode and the control plane does not hold a kubeconfig. Least privilege shapes the architecture.",
   },
   {
     title: "Built with pilot customers",
@@ -25,19 +25,19 @@ const principles = [
 
 const repos = [
   { name: "vworkspace", body: "Project overview, GTM docs, design spikes, and tracking.", href: links.vworkspace },
-  { name: "vworkspace-server", body: "Control plane on Odoo 19 CE — branded appliance UI, catalog, operations.", href: links.server },
-  { name: "vworkspace-operator", body: "Pull-mode Kubernetes operator (Go) — CRDs, Flux, Velero.", href: links.operator },
+  { name: "vworkspace-server", body: "Control plane on Odoo 19 CE with the workspace UI, catalog, operations, knowledge, and AI experts.", href: links.server },
+  { name: "vworkspace-operator", body: "Pull-mode Kubernetes operator in Go with CRDs, Flux, and Velero.", href: links.operator },
 ];
 ---
 
 <BaseLayout
-  title="Company"
-  description="vWorkspace builds a private workspace appliance with integrated applications, identity, storage, backup, secure access, and a human-approved AI specialist team."
+  title="About vWorkspace"
+  description="vWorkspace connects company knowledge and daily IT operations in a private workspace with AI experts and human-approved changes."
 >
   <PageHero
     eyebrow="Company"
-    title="Making private infrastructure useful to real organizations"
-    text="vWorkspace turns open infrastructure into a guided product: a private workspace, an AI specialist team, and a supported operating model on infrastructure the customer controls."
+    title="Making private workspaces useful to real organizations"
+    text="vWorkspace connects company knowledge and daily operations with a team of AI experts and a supported operating model."
   />
 
   <section class="section section--tight">
@@ -59,7 +59,7 @@ const repos = [
   <section class="section section--alt">
     <div class="container">
       <span class="eyebrow">Built in the open</span>
-      <h2 class="title">Three repositories, one product</h2>
+      <h2 class="section-title">Three repositories, one product</h2>
       <div class="repos">
         {
           repos.map((r) => (
@@ -89,8 +89,8 @@ const repos = [
 
   <CTA
     title="Work with vWorkspace"
-    text="Evaluating a private workspace for your organization? Request a pilot. Want to build with us? Everything lives on GitHub."
-    primaryLabel="Request a pilot"
+    text="Evaluate knowledge search and workspace operations in a cloud or on-prem pilot, or review the open source project on GitHub."
+    primaryLabel="Start a pilot"
     primaryHref={links.pilot}
     secondaryLabel="Explore on GitHub"
     secondaryHref={links.github}
@@ -104,15 +104,11 @@ const repos = [
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
-  .title {
-    font-size: clamp(24px, 3.4vw, 34px);
-    margin: 14px 0 0;
-  }
   .card {
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 28px;
+    padding: 24px;
   }
   .card h3 {
     font-size: 19px;
@@ -135,7 +131,7 @@ const repos = [
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 22px 26px;
+    padding: 18px 22px;
     transition: border-color 0.15s ease, transform 0.15s ease;
   }
   .repo:hover {

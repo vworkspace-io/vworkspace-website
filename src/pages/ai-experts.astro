@@ -1,0 +1,286 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import CTA from "../components/CTA.astro";
+
+const experts = [
+  {
+    id: "knowledge",
+    handle: "@AI",
+    area: "Knowledge",
+    title: "Knowledge Expert",
+    body: "Answers questions from approved company sources, summarizes documents, cites evidence, and directs requests to other experts.",
+    example: "Find our current contractor access policy and cite the source.",
+  },
+  {
+    id: "projects",
+    handle: "@AI_PM",
+    area: "Projects",
+    title: "Projects Expert",
+    body: "Reviews tasks, workload, milestones, timesheets, bottlenecks, and deadline risk. Project changes require approval.",
+    example: "Which deadlines are at risk, and who has capacity to help?",
+  },
+  {
+    id: "nextcloud",
+    handle: "@AI_Nextcloud",
+    area: "Files",
+    title: "Nextcloud Expert",
+    body: "Checks health, users, groups, shares, quotas, and folders. Finds and summarizes content inside approved locations.",
+    example: "Summarize the customer folder and show its active shares.",
+  },
+  {
+    id: "infrastructure",
+    handle: "@AI_DevOps",
+    area: "Infrastructure",
+    title: "Infrastructure Expert",
+    body: "Reads cluster, node, workload, event, Helm, and virtual machine context through approved tools.",
+    example: "What changed in the cluster before this service became unhealthy?",
+  },
+  {
+    id: "users",
+    handle: "@AI_Users",
+    area: "Identity",
+    title: "Users and Access Expert",
+    body: "Reviews users, groups, access, identity sources, and provisioning. Onboarding and offboarding require approval.",
+    example: "Who has admin access, and who is not fully provisioned?",
+  },
+  {
+    id: "netbird",
+    handle: "@AI_Netbird",
+    area: "Private network",
+    title: "NetBird Expert",
+    body: "Checks peers, groups, setup keys, policies, routes, DNS, and connectivity. Network changes wait for approval.",
+    example: "Why can this employee reach email but not Nextcloud?",
+  },
+  {
+    id: "storage",
+    handle: "@AI_Storage",
+    area: "Data protection",
+    title: "Storage and Backup Expert",
+    body: "Reviews S3 inventory, permissions, capacity signals, backup health, recovery points, and backup locations.",
+    example: "Is our latest backup usable, and what restore points are available?",
+  },
+  {
+    id: "screenshots",
+    handle: "@AI_Screenshot",
+    area: "Visual support",
+    title: "Screenshot Expert",
+    body: "Captures approved web pages to support troubleshooting and provide visual context to a larger investigation.",
+    example: "Capture the current service page so we can review the visible error.",
+  },
+];
+
+const faq = [
+  {
+    question: "Do I need to mention a specific AI expert?",
+    answer: "No. Mention @AI in Discuss and describe what you need. vWorkspace identifies the domain and sends the request to the right expert.",
+  },
+  {
+    question: "Can an AI expert change production systems by itself?",
+    answer: "Read requests can run through approved tools. Sensitive writes pause on a plan card until an authorized person approves or rejects them.",
+  },
+  {
+    question: "Does vWorkspace require a local GPU?",
+    answer: "No. You can use local models on suitable hardware or configure an OpenAI-compatible API. Cloud pilots can start without local GPU hardware.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title="Private AI Experts for Knowledge and IT Operations"
+  description="Meet the vWorkspace AI experts for company knowledge, projects, Nextcloud, infrastructure, users, NetBird, storage, backups, and visual support."
+  schema={faqSchema}
+>
+  <PageHero
+    eyebrow="AI Experts"
+    title="AI experts that understand the systems behind your work"
+    text="Ask @AI about company knowledge, projects, files, users, infrastructure, private access, storage, or backups. The right expert handles the request and returns the result to one conversation."
+  />
+
+  <section class="section section--tight">
+    <div class="container content-split">
+      <div>
+        <span class="eyebrow">One place to ask</span>
+        <h2 class="section-title">You describe the work. vWorkspace chooses the expert.</h2>
+        <p class="muted">
+          Teams do not need to learn a collection of tools or prompts. Start in
+          Discuss, mention <code>@AI</code>, and explain the question in normal
+          language. The expert uses the tools and context available for that
+          workspace.
+        </p>
+      </div>
+      <div class="sample">
+        <span>@AI</span>
+        <p>
+          A new employee starts on Monday. Check whether the account exists,
+          review the required Nextcloud and NetBird access, and prepare the
+          onboarding work for approval.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Expert areas</span>
+      <h2 class="section-title">Knowledge, work, access, and operations</h2>
+      <div class="expert-list">
+        {experts.map((expert) => (
+          <article id={expert.id}>
+            <div class="expert-list__identity">
+              <span>{expert.area}</span>
+              <code>{expert.handle}</code>
+            </div>
+            <div>
+              <h3>{expert.title}</h3>
+              <p class="muted">{expert.body}</p>
+            </div>
+            <p class="expert-example">{expert.example}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container content-split">
+      <div>
+        <span class="eyebrow">Safe action</span>
+        <h2 class="section-title">Useful access without unrestricted control</h2>
+        <p class="muted">
+          Each expert has a defined set of read and write tools. Credentials do
+          not belong in chat results. Destructive actions can be blocked by
+          policy even when someone requests them.
+        </p>
+      </div>
+      <ol class="flow">
+        <li><strong>Ask</strong><span>Describe the outcome or question.</span></li>
+        <li><strong>Investigate</strong><span>The expert reads approved context.</span></li>
+        <li><strong>Review</strong><span>Inspect the answer or proposed work.</span></li>
+        <li><strong>Approve</strong><span>An authorized person decides on writes.</span></li>
+        <li><strong>Audit</strong><span>Review the tools, decision, and result.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Questions</span>
+      <h2 class="section-title">How AI experts work</h2>
+      <div class="faq">
+        {faq.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    title="Try the AI experts with your own work"
+    text="Choose one real workflow and test how the right expert handles it in a focused pilot."
+    secondaryLabel="Explore knowledge search"
+    secondaryHref="/knowledge/"
+  />
+</BaseLayout>
+
+<style>
+  .sample {
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface-2);
+    display: flex;
+    gap: 14px;
+  }
+  .sample span {
+    color: var(--brand-600);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .sample p {
+    color: var(--ink-800);
+    font-size: 14px;
+  }
+  .expert-list {
+    margin-top: 36px;
+    border-top: 1px solid var(--line);
+  }
+  .expert-list article {
+    display: grid;
+    grid-template-columns: 120px 1fr 0.85fr;
+    gap: 24px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+    scroll-margin-top: 90px;
+  }
+  .expert-list__identity {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .expert-list__identity > span {
+    color: var(--brand-600);
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .expert-list h3 {
+    margin-bottom: 8px;
+    font-size: 19px;
+  }
+  .expert-list p {
+    font-size: 14px;
+  }
+  .expert-example {
+    margin: 0;
+    padding-left: 18px;
+    border-left: 2px solid var(--blue-200);
+    color: var(--ink-700);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  .flow {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+  .flow li {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 18px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .flow strong {
+    color: var(--ink-900);
+    font-size: 14px;
+  }
+  .flow span {
+    color: var(--ink-600);
+    font-size: 14px;
+  }
+  @media (max-width: 820px) {
+    .expert-list article {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+  }
+</style>

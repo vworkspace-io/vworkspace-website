@@ -2,17 +2,17 @@ export const site = {
   name: "vWorkspace",
   domain: "vworkspace.io",
   url: "https://vworkspace.io",
-  tagline: "Your private workspace. Your AI team. Your infrastructure.",
+  tagline: "Your knowledge. Your AI experts. Your workspace.",
   description:
-    "vWorkspace brings files, secure access, business tools, backups, and an AI specialist team together on infrastructure your organization controls.",
+    "A private AI workspace for company knowledge and IT operations, with AI experts that investigate, plan, and wait for your approval before sensitive changes.",
 };
 
 export const nav: Array<{ label: string; href: string; external?: boolean }> = [
   { label: "Product", href: "/product/" },
-  { label: "AI Team", href: "/ai-team/" },
+  { label: "Knowledge", href: "/knowledge/" },
+  { label: "AI Experts", href: "/ai-experts/" },
   { label: "Solutions", href: "/solutions/" },
-  { label: "Appliance", href: "/appliance/" },
-  { label: "Open Source", href: "/open-source/" },
+  { label: "Cloud Pilot", href: "/cloud-pilot/" },
 ];
 
 export const links = {
@@ -42,9 +42,19 @@ export const footerColumns = [
     title: "Product",
     items: [
       { label: "Product", href: "/product/" },
-      { label: "AI Team", href: "/ai-team/" },
+      { label: "Knowledge search", href: "/knowledge/" },
+      { label: "AI Experts", href: "/ai-experts/" },
+      { label: "NetBird and Access", href: "/netbird-ai/" },
       { label: "Solutions", href: "/solutions/" },
+    ],
+  },
+  {
+    title: "Deploy",
+    items: [
+      { label: "Cloud pilot", href: "/cloud-pilot/" },
       { label: "Appliance", href: "/appliance/" },
+      { label: "Open source", href: "/open-source/" },
+      { label: "Quickstart", href: links.quickstart, external: true },
     ],
   },
   {
@@ -56,19 +66,10 @@ export const footerColumns = [
     ],
   },
   {
-    title: "Open source",
-    items: [
-      { label: "Overview", href: "/open-source/" },
-      { label: "vworkspace", href: links.vworkspace, external: true },
-      { label: "vworkspace-server", href: links.server, external: true },
-      { label: "vworkspace-operator", href: links.operator, external: true },
-    ],
-  },
-  {
     title: "Company",
     items: [
       { label: "About", href: "/company/" },
-      { label: "Request a pilot", href: links.pilot },
+      { label: "Start a pilot", href: links.pilot },
       { label: "Email us", href: links.contact },
       { label: "Governance", href: links.governance, external: true },
       { label: "Security", href: links.security, external: true },

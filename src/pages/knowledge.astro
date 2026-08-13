@@ -1,0 +1,256 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import CTA from "../components/CTA.astro";
+
+const useCases = [
+  ["Policies and procedures", "Find the current policy, answer a practical question, and show the source used for the answer."],
+  ["Project folders", "Summarize a Nextcloud folder, find relevant files, and surface the context a project team needs."],
+  ["Operations knowledge", "Search runbooks, installation notes, and support documents while investigating an operational question."],
+  ["Document comparison", "Review two approved sources and identify where instructions, terms, or responsibilities differ."],
+];
+
+const workflow = [
+  ["Choose trusted sources", "Use approved PDFs and Nextcloud folders that belong in the workspace knowledge base."],
+  ["Index the content", "vWorkspace prepares searchable representations and keeps source context with the indexed material."],
+  ["Ask in natural language", "People can ask a direct question, search within a folder, or request a summary."],
+  ["Review the evidence", "Answers include source context so the reader can inspect the underlying material."],
+];
+
+const faq = [
+  {
+    question: "What content can vWorkspace search?",
+    answer: "The current knowledge workflows support approved PDF content and configured Nextcloud folders. Available sources depend on the installation and access policy.",
+  },
+  {
+    question: "Does knowledge search require a local GPU?",
+    answer: "No. The AI runtime can use local models on suitable hardware or a configured OpenAI-compatible API.",
+  },
+  {
+    question: "Can every user search every document?",
+    answer: "Knowledge sources should be configured with the workspace access model in mind. Content availability depends on the source and deployment configuration.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
+---
+
+<BaseLayout
+  title="Private Company Knowledge Search with AI"
+  description="Search approved PDFs and Nextcloud folders, summarize company documents, and get source-backed answers with private AI knowledge search from vWorkspace."
+  schema={faqSchema}
+>
+  <PageHero
+    eyebrow="Private company knowledge"
+    title="Find the answer without guessing where the document lives"
+    text="Turn approved PDFs and Nextcloud folders into a searchable company knowledge base. Ask questions in natural language, summarize content, and inspect the sources behind each answer."
+  />
+
+  <section class="section section--tight">
+    <div class="container content-split">
+      <div>
+        <span class="eyebrow">A practical search experience</span>
+        <h2 class="section-title">Search by meaning, not only by filename</h2>
+        <p class="muted">
+          Company knowledge often lives across policy files, project folders,
+          runbooks, and customer documents. vWorkspace gives teams one place to
+          ask a question and follow the answer back to the source.
+        </p>
+      </div>
+      <div class="query">
+        <span>@AI</span>
+        <p>Which policy explains how external contractors receive access?</p>
+        <div class="query__result">
+          <strong>2 relevant sources</strong>
+          <span>Contractor access policy.pdf</span>
+          <span>IT onboarding checklist.pdf</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Where it helps</span>
+      <h2 class="section-title">Use the knowledge your organization already has</h2>
+      <div class="use-cases">
+        {useCases.map(([title, body]) => (
+          <article>
+            <h3>{title}</h3>
+            <p class="muted">{body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">How it works</span>
+      <h2 class="section-title">From trusted source to useful answer</h2>
+      <ol class="workflow">
+        {workflow.map(([title, body], index) => (
+          <li>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <h3>{title}</h3>
+              <p class="muted">{body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container content-split">
+      <div>
+        <span class="eyebrow">Nextcloud knowledge</span>
+        <h2 class="section-title">Ask questions about the folders where teams already work</h2>
+        <p class="muted">
+          Find files inside an approved folder, summarize its contents, or ask
+          a question using the documents stored there. Knowledge search
+          complements Nextcloud collaboration rather than replacing it.
+        </p>
+      </div>
+      <div class="examples">
+        <p>Summarize this customer folder.</p>
+        <p>Find the document that defines the delivery deadline.</p>
+        <p>What changed between these two versions?</p>
+        <p>List the sources that support this answer.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Questions</span>
+      <h2 class="section-title">What to know before a knowledge pilot</h2>
+      <div class="faq">
+        {faq.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    title="Try private knowledge search with your own documents"
+    text="Choose a small, useful document set and a handful of real questions for a focused cloud or on-prem pilot."
+    secondaryLabel="Meet the Knowledge Expert"
+    secondaryHref="/ai-experts/#knowledge"
+  />
+</BaseLayout>
+
+<style>
+  .query {
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface-2);
+  }
+  .query > span {
+    color: var(--brand-600);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .query > p {
+    margin-top: 10px;
+    color: var(--ink-900);
+    font-size: 16px;
+  }
+  .query__result {
+    display: grid;
+    gap: 7px;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+  .query__result strong {
+    color: var(--success);
+    font-size: 12px;
+  }
+  .query__result span {
+    color: var(--ink-600);
+    font-size: 12px;
+  }
+  .use-cases {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 36px;
+    border-top: 1px solid var(--line);
+  }
+  .use-cases article {
+    padding: 22px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .use-cases article:nth-child(even) {
+    border-right: 0;
+  }
+  .use-cases h3 {
+    margin-bottom: 8px;
+    font-size: 19px;
+  }
+  .use-cases p {
+    font-size: 14px;
+  }
+  .workflow {
+    margin: 36px 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+  .workflow li {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 20px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .workflow li > span {
+    color: var(--brand-600);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  .workflow h3 {
+    margin-bottom: 6px;
+    font-size: 18px;
+  }
+  .workflow p {
+    font-size: 14px;
+  }
+  .examples {
+    display: grid;
+    gap: 10px;
+  }
+  .examples p {
+    padding: 15px 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--ink-800);
+    font-size: 14px;
+  }
+  @media (max-width: 720px) {
+    .use-cases {
+      grid-template-columns: 1fr;
+    }
+    .use-cases article {
+      padding-inline: 0;
+      border-right: 0;
+    }
+  }
+</style>

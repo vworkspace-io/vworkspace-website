@@ -10,8 +10,9 @@ Organization:
 Team size:
 Country / deployment site:
 Current file or workspace tools:
-Preferred deployment: appliance / own cluster / unsure
-Private AI requirements:
+Primary use case: knowledge / Nextcloud / NetBird / identity / projects / storage / other
+Preferred deployment: cloud pilot / appliance / own infrastructure / unsure
+Preferred AI runtime: local model / cloud API / unsure
 Storage and backup requirements:
 What would make a pilot successful?
 
@@ -21,26 +22,27 @@ const pilotMailto = `${links.contact}?subject=${subject}&body=${body}`;
 const questions = [
   "What does your organization use today for files, access, identity, and collaboration?",
   "How many people and deployment sites need to use the workspace?",
-  "Do you prefer a ready-to-run appliance, your own Kubernetes environment, or help deciding?",
-  "Which data, AI, storage, backup, or network constraints matter most?",
+  "Which single workflow should the pilot test first?",
+  "Do you prefer a cloud pilot, an appliance, your own infrastructure, or help deciding?",
+  "Would you use a cloud AI API or evaluate a local model?",
   "What outcome would make the pilot successful for your team?",
 ];
 
 const nextSteps = [
   ["We review the fit", "We compare your requirements with the current single-organization pilot scope."],
-  ["We schedule a walkthrough", "We focus the product demonstration on your applications, AI, identity, and operations needs."],
+  ["We schedule a working session", "We focus on the chosen workflow, documents, access patterns, and operational questions."],
   ["We design the pilot", "If there is a fit, we agree deployment responsibilities, acceptance criteria, and the next commercial step."],
 ];
 ---
 
 <BaseLayout
-  title="Request a Pilot"
-  description="Request a vWorkspace pilot for your organization. Share your deployment, application, data, AI, storage, and operational requirements for a guided fit assessment."
+  title="Start a Private AI Workspace Pilot"
+  description="Start a dedicated vWorkspace cloud or on-prem pilot with your own workflow, data, access patterns, and success criteria."
 >
   <PageHero
-    eyebrow="Pilot program"
-    title="See whether vWorkspace fits your organization"
-    text="Tell us what you need to operate privately, what you run today, and what success would look like. We will respond with the next practical step."
+    eyebrow="Cloud and on-prem pilots"
+    title="Test one useful workflow with your own context"
+    text="Choose one workflow to evaluate, such as knowledge search, file operations, private access, identity, projects, or backups. Start in the cloud if you do not have hardware yet."
   />
 
   <section class="section section--tight">
@@ -49,19 +51,19 @@ const nextSteps = [
         <span class="eyebrow">Start the conversation</span>
         <h2 class="section-title">A useful request takes a few minutes</h2>
         <p class="muted">
-          The pilot is currently designed for one organization per
-          installation. We work best with teams that need private files, secure
-          access, guided operations, backups, and practical AI on infrastructure
-          they control.
+          The pilot is designed for one organization. It can run in a dedicated
+          cloud environment, on supported hardware, or on customer
+          infrastructure. AI can use a local model or a configured
+          OpenAI-compatible API.
         </p>
-        <a class="btn btn--primary email-button" href={pilotMailto}>Email your pilot request</a>
+        <a class="btn btn--primary email-button" href={pilotMailto}>Start your pilot request</a>
         <p class="email-note muted">
           This opens a prefilled email to <a href={links.contact}>{links.contactEmail}</a>.
           You can edit every field before sending.
         </p>
       </div>
       <aside class="questions">
-        <h2>What to include</h2>
+        <h3>What to include</h3>
         <ol>
           {questions.map((question) => <li>{question}</li>)}
         </ol>
@@ -92,12 +94,13 @@ const nextSteps = [
         <h2 class="section-title">Clarity before commitment</h2>
       </div>
       <div class="callout">
-        <strong>Private alpha / pilot</strong>
+        <strong>Dedicated single-organization pilot</strong>
         <p class="muted">
-          vWorkspace does not currently claim multi-tenant SaaS or production
-          high availability. Hardware, installation, support, timelines, and
-          acceptance criteria are defined for each pilot before work begins.
+          A cloud pilot is a dedicated evaluation environment rather than a
+          shared multi-tenant SaaS service. Deployment, support, timelines, data
+          handling, and acceptance criteria are agreed before work begins.
         </p>
+        <a class="text-link" href="/cloud-pilot/">Review the cloud pilot</a>
       </div>
     </div>
   </section>
@@ -107,7 +110,7 @@ const nextSteps = [
   .pilot-grid {
     display: grid;
     grid-template-columns: 1fr 0.9fr;
-    gap: clamp(40px, 8vw, 96px);
+    gap: var(--space-split);
     align-items: start;
   }
   .email-button {
@@ -121,12 +124,12 @@ const nextSteps = [
     text-decoration: underline;
   }
   .questions {
-    padding: 30px;
+    padding: 24px;
     background: var(--surface-2);
     border: 1px solid var(--line);
     border-radius: var(--radius);
   }
-  .questions h2 {
+  .questions h3 {
     font-size: 20px;
   }
   .questions ol {

@@ -7,7 +7,7 @@ const included = [
   ["Control plane", "Workspace Home, cluster registration, catalog, operations, storage, audit, and AI orchestration."],
   ["Private cluster", "A supported Kubernetes environment with the vWorkspace operator and application delivery stack."],
   ["Core services", "A deployment designed around Nextcloud, NetBird, vWorkspace SSO, and organization tools."],
-  ["AI runtime", "Local inference on suitable GPU hardware where configured, with an approved cloud-provider option."],
+  ["AI runtime", "Use local inference on suitable GPU hardware or connect a configured OpenAI-compatible API."],
   ["Data protection", "Bring-your-own S3 integration and supported Velero backup workflows."],
   ["Guided delivery", "Installation, configuration, product walkthrough, onboarding, and acceptance review."],
 ];
@@ -16,26 +16,26 @@ const journey = [
   ["Fit assessment", "Confirm users, applications, data sensitivity, sites, storage, networking, and AI requirements."],
   ["Deployment design", "Agree hardware, cluster topology, identity flow, storage targets, and acceptance criteria."],
   ["Installation", "Prepare the appliance, connect the environment, and deploy the agreed core services."],
-  ["Team onboarding", "Walk administrators and users through the workspace, AI Team, and approval model."],
+  ["Team onboarding", "Walk administrators and users through the workspace, AI experts, and approval model."],
   ["Acceptance review", "Validate service health, access, backup operations, and the agreed pilot workflows."],
 ];
 ---
 
 <BaseLayout
-  title="Appliance"
+  title="On-Prem Private Workspace Appliance"
   description="Get vWorkspace delivered as a ready-to-run private workspace appliance with guided setup, applications, secure access, private AI, storage, backups, and support."
 >
   <PageHero
     eyebrow="vWorkspace appliance"
-    title="Private cloud outcomes without building a private cloud team"
-    text="Get vWorkspace preinstalled on hardware for your site, with guided setup, application deployment, private AI, and ongoing support."
+    title="A ready-to-run private workspace at your site"
+    text="Get vWorkspace installed on supported hardware with company knowledge, Nextcloud, NetBird, identity, storage, backups, AI experts, and guided support."
   />
 
   <section class="section section--tight">
     <div class="container content-split">
       <div>
         <span class="eyebrow">What arrives</span>
-        <h2 class="section-title">A product, not a box of parts</h2>
+        <h2 class="section-title">The product arrives configured for your organization</h2>
         <p class="lead">
           The appliance packages the open infrastructure, control plane, and
           operating workflows into one supported installation for your
@@ -111,11 +111,12 @@ const journey = [
       <div class="callout">
         <strong>One organization per installation</strong>
         <p class="muted">
-          The current appliance path is a private alpha/pilot for a single
+          The current appliance path is a dedicated pilot for a single
           organization. Production high availability and multi-tenant SaaS are
-          not current product claims; the pilot scope and acceptance criteria
+          not current product claims. The pilot scope and acceptance criteria
           are agreed before installation.
         </p>
+        <a class="text-link" href="/cloud-pilot/">Not ready for hardware? Start with a cloud pilot.</a>
       </div>
     </div>
   </section>
@@ -153,13 +154,13 @@ const journey = [
     margin-top: 36px;
   }
   .ownership article {
-    padding: 32px;
+    padding: 24px;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
   }
   .ownership h3 {
-    font-size: 21px;
+    font-size: var(--heading-card);
   }
   .journey {
     margin: 36px 0 0;
