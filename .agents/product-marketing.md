@@ -1,8 +1,11 @@
 # Product Marketing Context
 
-**Document version:** v1  
-**Last updated:** 2026-09-19  
-**Status:** Authoritative working context; public claims and publishing require Sarah's approval  
+**Document version:** v1
+
+**Last updated:** 2026-09-19
+
+**Status:** Authoritative working context; public claims and publishing require Sarah's approval
+
 **Scope:** Positioning, messaging, claim governance, and downstream GTM assets
 
 This is the source of truth for new vWorkspace marketing work. It supersedes the current website's positioning for future drafts, but it does not authorize a website change or public claim. Product specifications remain authoritative for implementation details.
